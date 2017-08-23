@@ -20,6 +20,11 @@ public class ConnectFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.frag_connect,container,false);
+        View view = inflater.inflate(R.layout.frag_connect,container,false);
+
+
+
+        return view;
+
     }
 }
