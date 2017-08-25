@@ -37,10 +37,6 @@ import io.reactivex.disposables.Disposable;
 
 public class LoginActivity extends BaseActivity implements LoaderCallbacks<Cursor> {
 
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };
-
     private AutoCompleteTextView mPhoneView;
     private EditText mPasswordView;
     private View mProgressView;
