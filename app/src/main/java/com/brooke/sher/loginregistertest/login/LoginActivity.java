@@ -3,16 +3,8 @@ package com.brooke.sher.loginregistertest.login;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.LoaderManager.LoaderCallbacks;
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,15 +17,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.brooke.sher.loginregistertest.R;
-import com.brooke.sher.loginregistertest.data.UserInfo;
-import com.brooke.sher.loginregistertest.net.HttpMethods;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android2.ui.BaseActivity;
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
 
 
 public class LoginActivity extends BaseActivity implements LoginContact.View {
@@ -111,17 +98,6 @@ public class LoginActivity extends BaseActivity implements LoginContact.View {
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
-    }
-
-
-
-
-    private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter<>(LoginActivity.this,
-                        android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
-
-        mPhoneView.setAdapter(adapter);
     }
 
     @Override

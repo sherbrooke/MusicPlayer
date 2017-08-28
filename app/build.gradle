@@ -17,6 +17,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    configurations.all {
+        resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'
+    }
 }
 
 dependencies {
@@ -38,6 +41,8 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
 
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
-    compile 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
+    compile 'com.google.dagger:dagger-android:2.11'
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.11'
+
 }
