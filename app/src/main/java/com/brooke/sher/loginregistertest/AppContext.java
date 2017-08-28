@@ -1,5 +1,6 @@
 package com.brooke.sher.loginregistertest;
 
+
 import android2.BaseAppContext;
 
 /**
@@ -11,6 +12,5 @@ public class AppContext extends BaseAppContext {
     @Override
     public void onCreate() {
         super.onCreate();
-
     }
 }
