@@ -5,4 +5,11 @@ package com.brooke.sher.loginregistertest.data.source;
  */
 
 public interface UserDataSource {
+    interface UserInfoCallBack{
+        void onComplete();
+
+        void onError();
+    }
+
+    void login(String phone,String passwd,UserInfoCallBack callBack);
 }
