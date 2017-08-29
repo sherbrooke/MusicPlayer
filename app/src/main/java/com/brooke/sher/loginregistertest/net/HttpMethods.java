@@ -5,6 +5,7 @@ import com.brooke.sher.loginregistertest.data.UserInfo;
 import com.brooke.sher.loginregistertest.net.retrofit.TestLogin;
 
 import android2.net.BasehttpMethods;
+import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -38,10 +39,8 @@ public class HttpMethods extends BasehttpMethods {
                 .subscribe(observer);
     }
 
-    public void login(Observer<UserInfo> observer,  String passwd, String phone){
-        mTestLogin.login(passwd,phone).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observer);
+    public Observable<UserInfo> login( String passwd, String phone){
+     return    mTestLogin.login(passwd,phone);
     }
 
 }

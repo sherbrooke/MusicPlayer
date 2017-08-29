@@ -26,9 +26,11 @@ public class LoginPresenter implements LoginContact.Presenter {
         mUserInfoRepository = UserInfoRepository.getInstance(RemoteUserDataSource.getINSTANCE(), LocalUserDataSource.getINSTANCE());
     }
 
+
+    //如果一进入页面就需要数据，通过在view的onresume方法里面调用实现,需要的参数可以通过构造方法传入
     @Override
     public void subscribe() {
-
+//        attempLogin()
     }
 
     @Override
