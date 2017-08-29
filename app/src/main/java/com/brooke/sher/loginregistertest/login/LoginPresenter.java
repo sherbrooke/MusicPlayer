@@ -2,16 +2,15 @@ package com.brooke.sher.loginregistertest.login;
 
 import android.text.TextUtils;
 
-import com.brooke.sher.loginregistertest.R;
 import com.brooke.sher.loginregistertest.data.UserInfo;
-import com.brooke.sher.loginregistertest.net.HttpMethods;
+import com.brooke.sher.loginregistertest.data.source.UserInfoRepository;
+import com.brooke.sher.loginregistertest.data.source.local.LocalUserDataSource;
+import com.brooke.sher.loginregistertest.data.source.remote.RemoteUserDataSource;
 
 import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-
-import static android.R.attr.value;
-import static android.R.string.cancel;
-import static com.brooke.sher.loginregistertest.R.id.email;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by wangyang on 2017/8/28.
@@ -20,9 +19,11 @@ import static com.brooke.sher.loginregistertest.R.id.email;
 public class LoginPresenter implements LoginContact.Presenter {
 
     private LoginContact.View view;
+    private UserInfoRepository mUserInfoRepository;
 
     public LoginPresenter(LoginContact.View view){
         this.view = view;
+        mUserInfoRepository = UserInfoRepository.getInstance(RemoteUserDataSource.getINSTANCE(), LocalUserDataSource.getINSTANCE());
     }
 
     @Override
@@ -46,7 +47,7 @@ public class LoginPresenter implements LoginContact.Presenter {
             return;
         }
 
-            Observer<UserInfo> observable = new Observer<UserInfo>() {
+            Observer<UserInfo> observer = new Observer<UserInfo>() {
                 @Override
                 public void onSubscribe(Disposable d) {
                 }
@@ -67,7 +68,11 @@ public class LoginPresenter implements LoginContact.Presenter {
                     view.showToast("成功");
                 }
             };
-            HttpMethods.getInstance().login(observable, passwd, phone);
+
+        mUserInfoRepository.login(phone,passwd)
+            .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
     }
 
     /**
