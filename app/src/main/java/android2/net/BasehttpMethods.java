@@ -13,7 +13,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public abstract class BasehttpMethods {
 
-    public static final String BASE_URL = "http://192.168.0.108:8080/learnTest/" ;
+//    public static final String BASE_URL = "http://192.168.0.108:8080/learnTest/" ;
+    public static final String BASE_URL = "http://192.168.0.111:8080/LoginRegisterTest/" ;
 
     private static final int DEFAULT_TIMEOUT = 30;
 

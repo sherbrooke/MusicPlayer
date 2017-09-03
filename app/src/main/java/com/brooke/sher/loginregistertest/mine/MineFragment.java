@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.brooke.sher.loginregistertest.R;
-import com.brooke.sher.loginregistertest.login.LoginActivity;
+import com.brooke.sher.loginregistertest.register.submitaccount.SubmitAccountInfoActivity;
 
 import android2.ui.fragment.BaseFragment;
 
@@ -41,8 +41,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.login:
-                Intent intent = new Intent(this.getActivity().getApplicationContext(), LoginActivity.class);
-//                Intent intent = new Intent(this.getActivity().getApplicationContext(), SubmitAccountInfoActivity.class);
+//                Intent intent = new Intent(this.getActivity().getApplicationContext(), LoginActivity.class);
+                Intent intent = new Intent(this.getActivity().getApplicationContext(), SubmitAccountInfoActivity.class);
                 startActivityForResult(intent,4);
                 break;
         }
