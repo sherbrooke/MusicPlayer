@@ -9,6 +9,7 @@ import com.brooke.sher.loginregistertest.BaseView;
 
 public class SubmitAccountInfoContact {
     interface View extends BaseView<Presenter>{
+        void showToast(String info);
     };
 
     interface Presenter extends BasePresenter{

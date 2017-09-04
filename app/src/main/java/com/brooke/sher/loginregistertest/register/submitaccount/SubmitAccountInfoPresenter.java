@@ -54,6 +54,7 @@ public class SubmitAccountInfoPresenter implements SubmitAccountInfoContact.Pres
 
             @Override
             public void onComplete() {
+                submitAccountInfoView.showToast("oncomplete");
                 Log.d("ssss", "complete");
 
             }

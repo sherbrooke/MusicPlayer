@@ -66,4 +66,9 @@ public class SubmitAccountInfoActivity extends BaseActivity implements View.OnCl
     @Override
     public void setPresenter(SubmitAccountInfoContact.Presenter persenter) {
     }
+
+    @Override
+    public void showToast(String info) {
+        androidToast(info);
+    }
 }
