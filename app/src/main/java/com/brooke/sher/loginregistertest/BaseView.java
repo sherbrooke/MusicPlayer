@@ -6,6 +6,4 @@ package com.brooke.sher.loginregistertest;
 
 public interface BaseView<T> {
 
-    void setPresenter(T persenter);
-
 }

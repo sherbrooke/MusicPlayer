@@ -109,9 +109,6 @@ public class LoginActivity extends BaseActivity implements LoginContact.View {
 
     }
 
-    @Override
-    public void setPresenter(LoginContact.Presenter persenter) {
-    }
 
     @Override
     public void showToast(String toastThings) {

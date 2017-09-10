@@ -34,9 +34,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         }
     }
 
-    @Override
-    public void setPresenter(RegisterContact.Presenter persenter) {
-    }
 
     @Override
     public void goNextPage() {

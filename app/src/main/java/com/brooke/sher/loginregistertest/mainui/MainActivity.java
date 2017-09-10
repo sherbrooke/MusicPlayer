@@ -25,9 +25,6 @@ public class MainActivity extends BaseActivity implements MainUiContact.View{
     private ViewPagerAdapter mViewPagerAdapter;
     private MainUiPresenter persenter;
 
-    @Override
-    public void setPresenter(MainUiContact.Presenter persenter) {
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
