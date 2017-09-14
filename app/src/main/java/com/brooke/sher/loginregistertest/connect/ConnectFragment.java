@@ -1,10 +1,7 @@
 package com.brooke.sher.loginregistertest.connect;
 
 
-import android.content.ComponentName;
-import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.media.session.MediaControllerCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
@@ -29,7 +26,7 @@ import java.util.List;
  * Created by Sher on 2017/8/20.
  */
 
-public class ConnectFragment extends BaseFragment implements ConnectContact.View, ServiceConnection {
+public class ConnectFragment extends BaseFragment implements ConnectContact.View {
 
     private RecyclerView rvList;
     private BaseQuickAdapter adapter;
@@ -47,7 +44,7 @@ public class ConnectFragment extends BaseFragment implements ConnectContact.View
         View view = inflater.inflate(R.layout.frag_connect,container,false);
         presenter = new ConnectPresenter(this,mContext);
 
-
+        mMediaController = MediaControllerCompat.getMediaController(this.getActivity());
 
         rvList = view.findViewById(R.id.rv_list);
         rvList.setLayoutManager(new LinearLayoutManager(mContext));
@@ -69,23 +66,7 @@ public class ConnectFragment extends BaseFragment implements ConnectContact.View
         });
         rvList.setAdapter(adapter);
 
-
-
-
-
-
         return view;
-
-    }
-
-
-    @Override
-    public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-
-    }
-
-    @Override
-    public void onServiceDisconnected(ComponentName componentName) {
 
     }
 }
