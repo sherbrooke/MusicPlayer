@@ -3,7 +3,7 @@ package com.brooke.sher.loginregistertest.register.submitcode;
 import android.os.Bundle;
 
 import com.brooke.sher.loginregistertest.R;
-import com.sher.android2.ui.BaseActivity;
+import com.brooke.sher.loginregistertest.BaseActivity;
 
 
 public class SubmitCodeActivity extends BaseActivity {

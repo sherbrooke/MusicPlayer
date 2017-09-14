@@ -3,6 +3,7 @@ package com.brooke.sher.loginregistertest;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.media.session.MediaSessionCompat;
@@ -14,6 +15,45 @@ import android.support.v4.media.session.MediaSessionCompat;
 public class MusicService extends Service {
 
     private MediaSessionCompat mediaSessionCompat;
+    private MediaSessionCompat.Callback callback = new MediaSessionCompat.Callback() {
+        @Override
+        public void onPlay() {
+            super.onPlay();
+
+        }
+
+        @Override
+        public void onPlayFromMediaId(String mediaId, Bundle extras) {
+            super.onPlayFromMediaId(mediaId, extras);
+            //通过mediaid获取到当前的列表以及当前的音乐
+
+        }
+
+        @Override
+        public void onSkipToQueueItem(long id) {
+            super.onSkipToQueueItem(id);
+        }
+
+        @Override
+        public void onPause() {
+            super.onPause();
+        }
+
+        @Override
+        public void onSkipToNext() {
+            super.onSkipToNext();
+        }
+
+        @Override
+        public void onSkipToPrevious() {
+            super.onSkipToPrevious();
+        }
+
+        @Override
+        public void onSeekTo(long pos) {
+            super.onSeekTo(pos);
+        }
+    };
 
     @Nullable
     @Override

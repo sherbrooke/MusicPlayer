@@ -80,7 +80,7 @@ public final class ImageUtils {
             try {
                 bitmap.recycle();
             } catch (Exception e) {
-                android2.util.LogUtils.e(TAG, e);
+                com.sher.android2.util.LogUtils.e(TAG, e);
             }
         }
     }
@@ -91,7 +91,7 @@ public final class ImageUtils {
      * @throws IOException
      */
     public static void saveImage(Context context, String fileName, Bitmap bitmap) throws IOException {
-        android2.util.LogUtils.d("", "saveImgae : " + fileName);
+        com.sher.android2.util.LogUtils.d("", "saveImgae : " + fileName);
         saveImage(context, fileName, bitmap, 100);
     }
 
@@ -169,9 +169,9 @@ public final class ImageUtils {
             fis = context.openFileInput(fileName);
             bitmap = BitmapFactory.decodeStream(fis);
         } catch (FileNotFoundException e) {
-            android2.util.LogUtils.e(TAG, e);
+            com.sher.android2.util.LogUtils.e(TAG, e);
         } catch (OutOfMemoryError e) {
-            android2.util.LogUtils.e(TAG, e);
+            com.sher.android2.util.LogUtils.e(TAG, e);
         } finally {
             try {
                 fis.close();
@@ -199,9 +199,9 @@ public final class ImageUtils {
             fis = new FileInputStream(file);
             bitmap = BitmapFactory.decodeStream(fis, null, opts);
         } catch (FileNotFoundException e) {
-            android2.util.LogUtils.e(TAG, e);
+            com.sher.android2.util.LogUtils.e(TAG, e);
         } catch (OutOfMemoryError e) {
-            android2.util.LogUtils.e(TAG, e);
+            com.sher.android2.util.LogUtils.e(TAG, e);
         } finally {
             try {
                 fis.close();

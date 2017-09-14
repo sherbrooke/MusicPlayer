@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.brooke.sher.loginregistertest.R;
 import com.brooke.sher.loginregistertest.login.LoginActivity;
-import com.sher.android2.ui.BaseActivity;
+import com.brooke.sher.loginregistertest.BaseActivity;
 
 
 public class SubmitAccountInfoActivity extends BaseActivity implements View.OnClickListener,SubmitAccountInfoContact.View {

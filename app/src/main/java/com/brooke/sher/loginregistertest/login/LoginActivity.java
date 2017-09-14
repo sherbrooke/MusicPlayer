@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.brooke.sher.loginregistertest.R;
-import com.sher.android2.ui.BaseActivity;
+import com.brooke.sher.loginregistertest.BaseActivity;
 
 
 public class LoginActivity extends BaseActivity implements LoginContact.View {

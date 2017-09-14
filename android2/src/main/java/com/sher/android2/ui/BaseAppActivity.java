@@ -11,11 +11,12 @@ import android.widget.Toast;
 import com.sher.android2.AppManager;
 import com.sher.android2.ToastHolder;
 
-
 /**
- * activity的基类，应用内所有页面都应继承自该类
+ * Created by wangyang on 2017/9/14.
  */
-public abstract class BaseActivity extends AppCompatActivity {
+
+public class BaseAppActivity extends AppCompatActivity {
+
     // 日志打印tag
     protected String TAG;
     protected Context mContext;
@@ -35,7 +36,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         width = d.getWidth()/6;
     }
 
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -44,9 +44,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     /**
-     * @see BaseActivity#startActivity(Class, Bundle)
+     * @see BaseAppActivity#startActivity(Class, Bundle)
      */
-    public void startActivity(Class<? extends BaseActivity> cls) {
+    public void startActivity(Class<? extends BaseAppActivity> cls) {
         startActivity(cls, null);
     }
 
@@ -56,7 +56,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param cls  目标页面
      * @param data 传递的数据
      */
-    public void startActivity(Class<? extends BaseActivity> cls, Bundle data) {
+    public void startActivity(Class<? extends BaseAppActivity> cls, Bundle data) {
         Intent intent = new Intent(this, cls);
         if (null != data)
             intent.putExtras(data);
@@ -78,5 +78,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void androidToast(String toastMsg, int duration) {
         ToastHolder.showToast(mContext, toastMsg, duration);
     }
+
 
 }

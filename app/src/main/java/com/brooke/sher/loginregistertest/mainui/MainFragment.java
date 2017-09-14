@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.brooke.sher.loginregistertest.R;
-import com.sher.android2.ui.fragment.BaseFragment;
+import com.brooke.sher.loginregistertest.BaseFragment;
 
 
 /**

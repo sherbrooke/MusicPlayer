@@ -7,11 +7,12 @@ import android.widget.Toast;
 
 import com.sher.android2.ToastHolder;
 
-
 /**
- * fragment基类，app内所有fragment都应继承自本类
+ * Created by wangyang on 2017/9/14.
  */
-public abstract class BaseFragment extends Fragment {
+
+public class BaseAppFragment extends Fragment {
+
     protected String TAG;
     protected Context mContext;
     protected String mPageName;
@@ -29,7 +30,6 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
-
     protected void androidToast(String toastMsg) {
         androidToast(toastMsg, Toast.LENGTH_SHORT);
     }
@@ -45,4 +45,5 @@ public abstract class BaseFragment extends Fragment {
     protected void androidToast(String toastMsg, int duration) {
         ToastHolder.showToast(mContext, toastMsg, duration);
     }
+
 }

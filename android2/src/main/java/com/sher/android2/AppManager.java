@@ -4,7 +4,7 @@ import android.app.ActivityManager;
 import android.app.NotificationManager;
 import android.content.Context;
 
-import com.sher.android2.ui.BaseActivity;
+import com.sher.android2.ui.BaseAppActivity;
 
 import java.util.EmptyStackException;
 import java.util.Stack;
@@ -14,11 +14,11 @@ import java.util.Stack;
  */
 public class AppManager {
 
-    private static Stack<BaseActivity> sActivityStack;
+    private static Stack<BaseAppActivity> sActivityStack;
     private static AppManager sInstance;
 
     private AppManager() {
-        sActivityStack = new Stack<BaseActivity>();
+        sActivityStack = new Stack<BaseAppActivity>();
     }
 
     /**
@@ -34,9 +34,9 @@ public class AppManager {
     /**
      * 添加Activity到堆栈
      */
-    public synchronized void addActivity(BaseActivity activity) {
+    public synchronized void addActivity(BaseAppActivity activity) {
         if (sActivityStack == null) {
-            sActivityStack = new Stack<BaseActivity>();
+            sActivityStack = new Stack<BaseAppActivity>();
         }
         sActivityStack.add(activity);
     }
@@ -44,7 +44,7 @@ public class AppManager {
     /**
      * 获取当前Activity（堆栈中最后一个压入的）
      */
-    public BaseActivity currentActivity() {
+    public BaseAppActivity currentActivity() {
         try {
             return sActivityStack.peek();
         } catch (EmptyStackException e) {
@@ -52,7 +52,7 @@ public class AppManager {
         }
     }
 
-    public BaseActivity getActivityBackCurrent() {
+    public BaseAppActivity getActivityBackCurrent() {
         try {
             if (sActivityStack.size() > 1) {
                 return sActivityStack.get(sActivityStack.size() - 2);
@@ -76,7 +76,7 @@ public class AppManager {
     /**
      * 结束指定的Activity
      */
-    public void finishActivity(BaseActivity activity) {
+    public void finishActivity(BaseAppActivity activity) {
         if (null != activity) {
             sActivityStack.remove(activity);
             activity.finish();
@@ -87,10 +87,10 @@ public class AppManager {
     /**
      * 结束指定类名的Activity
      */
-    public void finishActivity(Class<? extends BaseActivity> cls) {
+    public void finishActivity(Class<? extends BaseAppActivity> cls) {
         int stackSize = sActivityStack.size();
         for (int i = stackSize - 1; i >= 0; i--) {
-            BaseActivity activity = sActivityStack.get(i);
+            BaseAppActivity activity = sActivityStack.get(i);
             if (null == activity) {
                 sActivityStack.remove(i);
             } else if (activity.getClass().equals(cls)) {
@@ -101,11 +101,11 @@ public class AppManager {
         }
     }
 
-    public void finishActivityExcept(Class<? extends BaseActivity> cls) {
+    public void finishActivityExcept(Class<? extends BaseAppActivity> cls) {
         // TODO Auto-generated method stub
         int stackSize = sActivityStack.size();
         for (int i = stackSize - 1; i >= 0; i--) {
-            BaseActivity activity = sActivityStack.get(i);
+            BaseAppActivity activity = sActivityStack.get(i);
             if (null == activity) {
                 sActivityStack.remove(i);
             } else if (!activity.getClass().equals(cls)) {
@@ -122,7 +122,7 @@ public class AppManager {
     public void finishAllActivity() {
         while (true) {
             try {
-                BaseActivity activity = sActivityStack.pop();
+                BaseAppActivity activity = sActivityStack.pop();
                 if (null != activity)
                     activity.finish();
             } catch (EmptyStackException e) {
