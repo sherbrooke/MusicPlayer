@@ -4,8 +4,8 @@ package com.brooke.sher.loginregistertest.register.submitaccount;
 import android.util.Log;
 
 import com.brooke.sher.loginregistertest.net.HttpMethods;
+import com.sher.android2.entity.BaseHttpResult;
 
-import android2.entity.BaseHttpResult;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 

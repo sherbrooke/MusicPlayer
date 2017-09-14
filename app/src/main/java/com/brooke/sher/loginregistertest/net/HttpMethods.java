@@ -2,9 +2,9 @@ package com.brooke.sher.loginregistertest.net;
 
 import com.brooke.sher.loginregistertest.data.UserInfo;
 import com.brooke.sher.loginregistertest.net.retrofit.TestLogin;
+import com.sher.android2.entity.BaseHttpResult;
+import com.sher.android2.net.BasehttpMethods;
 
-import android2.entity.BaseHttpResult;
-import android2.net.BasehttpMethods;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;

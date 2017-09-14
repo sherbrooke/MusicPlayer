@@ -8,8 +8,8 @@ import android.widget.TextView;
 
 import com.brooke.sher.loginregistertest.R;
 import com.brooke.sher.loginregistertest.register.submitcode.SubmitCodeActivity;
+import com.sher.android2.ui.BaseActivity;
 
-import android2.ui.BaseActivity;
 
 public class RegisterActivity extends BaseActivity implements View.OnClickListener,RegisterContact.View {
 

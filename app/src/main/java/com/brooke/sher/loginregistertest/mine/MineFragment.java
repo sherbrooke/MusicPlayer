@@ -11,8 +11,7 @@ import android.widget.TextView;
 
 import com.brooke.sher.loginregistertest.R;
 import com.brooke.sher.loginregistertest.register.submitaccount.SubmitAccountInfoActivity;
-
-import android2.ui.fragment.BaseFragment;
+import com.sher.android2.ui.fragment.BaseFragment;
 
 import static android.app.Activity.RESULT_OK;
 

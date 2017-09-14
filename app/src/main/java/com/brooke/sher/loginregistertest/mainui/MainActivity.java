@@ -8,10 +8,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.brooke.sher.loginregistertest.R;
+import com.sher.android2.ui.BaseActivity;
 
 import java.util.List;
 
-import android2.ui.BaseActivity;
 
 /**
  *

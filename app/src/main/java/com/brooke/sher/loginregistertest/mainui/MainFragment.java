@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.brooke.sher.loginregistertest.R;
+import com.sher.android2.ui.fragment.BaseFragment;
 
-import android2.ui.fragment.BaseFragment;
 
 /**
  * Created by Sher on 2017/8/20.

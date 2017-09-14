@@ -2,8 +2,8 @@ package com.brooke.sher.loginregistertest.net.retrofit;
 
 import com.brooke.sher.loginregistertest.data.BaseObject;
 import com.brooke.sher.loginregistertest.data.UserInfo;
+import com.sher.android2.entity.BaseHttpResult;
 
-import android2.entity.BaseHttpResult;
 import io.reactivex.Observable;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;

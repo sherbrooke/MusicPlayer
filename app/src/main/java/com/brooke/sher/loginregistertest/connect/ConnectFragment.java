@@ -22,10 +22,10 @@ import com.brooke.sher.loginregistertest.R;
 import com.brooke.sher.loginregistertest.connect.adapter.MusicAdapter;
 import com.brooke.sher.loginregistertest.data.MusicInfo;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.sher.android2.ui.fragment.BaseFragment;
 
 import java.util.List;
 
-import android2.ui.fragment.BaseFragment;
 
 /**
  * Created by Sher on 2017/8/20.
