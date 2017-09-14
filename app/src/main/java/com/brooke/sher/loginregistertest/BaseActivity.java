@@ -25,16 +25,16 @@ public abstract class BaseActivity extends BaseAppActivity implements ServiceCon
         super.onCreate(savedInstanceState);
 
         Intent intent = new Intent(mContext, MusicService.class);
-        mContext.bindService(intent,this, Context.BIND_AUTO_CREATE);
+        bindService(intent,this, Context.BIND_AUTO_CREATE);
 
     }
 
     @Override
     public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-        musicService = (MusicService) iBinder;
+        musicService = ((MusicService.MusicBinder) iBinder).getService();
         try {
             mMediaController = new MediaControllerCompat(mContext,musicService.getToken());
-            MediaControllerCompat.setMediaController(this,mMediaController);
+            MediaControllerCompat.setMediaController(baseAppActivity,mMediaController);
         } catch (RemoteException e) {
             e.printStackTrace();
         }

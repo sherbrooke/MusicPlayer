@@ -6,7 +6,7 @@ import android.view.KeyEvent;
 import android.widget.Toast;
 
 import com.sher.android2.AppManager;
-import com.sher.android2.ui.BaseActivity;
+import com.sher.android2.ui.BaseAppActivity;
 
 
 /**
@@ -14,13 +14,13 @@ import com.sher.android2.ui.BaseActivity;
  */
 public final class DoubleClickExitHelper {
 
-    private final BaseActivity mActivity;
+    private final BaseAppActivity mActivity;
 
     private boolean isOnKeyBacking;
     private Handler mHandler;
     private Toast mBackToast;
 
-    public DoubleClickExitHelper(BaseActivity activity) {
+    public DoubleClickExitHelper(BaseAppActivity activity) {
         mActivity = activity;
         mHandler = new Handler(Looper.getMainLooper());
     }

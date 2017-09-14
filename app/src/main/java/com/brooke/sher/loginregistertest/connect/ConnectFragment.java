@@ -18,6 +18,7 @@ import com.brooke.sher.loginregistertest.R;
 import com.brooke.sher.loginregistertest.connect.adapter.MusicAdapter;
 import com.brooke.sher.loginregistertest.data.MusicInfo;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.sher.android2.ui.BaseAppActivity;
 
 import java.util.List;
 
@@ -44,7 +45,7 @@ public class ConnectFragment extends BaseFragment implements ConnectContact.View
         View view = inflater.inflate(R.layout.frag_connect,container,false);
         presenter = new ConnectPresenter(this,mContext);
 
-        mMediaController = MediaControllerCompat.getMediaController(this.getActivity());
+        mMediaController = MediaControllerCompat.getMediaController(((BaseAppActivity)this.getActivity()).baseAppActivity);
 
         rvList = view.findViewById(R.id.rv_list);
         rvList.setLayoutManager(new LinearLayoutManager(mContext));
