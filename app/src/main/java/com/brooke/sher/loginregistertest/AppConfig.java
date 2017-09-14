@@ -2,13 +2,14 @@ package com.brooke.sher.loginregistertest;
 
 import android.content.Context;
 
-import android2.BaseAppConfig;
+import com.sher.android2.BaseAppConfig;
+
 
 /**
  * Created by Sher on 2017/8/20.
  */
 
-public class AppConfig extends BaseAppConfig{
+public class AppConfig extends BaseAppConfig {
 
     protected AppConfig(Context context) {
         super(context);
