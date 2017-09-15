@@ -21,12 +21,13 @@ public class BaseAppActivity extends AppCompatActivity {
     protected String TAG;
     protected Context mContext;
     public static int width = 0;
+    public BaseAppActivity baseAppActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = this.getApplicationContext();
-
+        baseAppActivity = this;
         TAG = this.getClass().getSimpleName();
         // 添加Activity到堆栈
         AppManager.getInstance().addActivity(this);

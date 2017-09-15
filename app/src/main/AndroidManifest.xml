@@ -36,6 +36,11 @@
         <activity android:name=".register.submitcode.SubmitCodeActivity" />
         <activity android:name=".register.submitaccount.SubmitAccountInfoActivity">
         </activity>
+
+        <service android:name=".MusicService"
+            android:exported="true"
+            />
+
     </application>
 
 </manifest>
