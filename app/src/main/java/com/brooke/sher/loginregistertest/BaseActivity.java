@@ -6,9 +6,9 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.os.RemoteException;
 import android.support.v4.media.session.MediaControllerCompat;
 
+import com.brooke.sher.loginregistertest.connect.CallBack;
 import com.sher.android2.ui.BaseAppActivity;
 
 
@@ -19,11 +19,10 @@ public abstract class BaseActivity extends BaseAppActivity implements ServiceCon
 
     private MediaControllerCompat mMediaController;
     private MusicService musicService;
-
+    private CallBack callback;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         Intent intent = new Intent(mContext, MusicService.class);
         bindService(intent,this, Context.BIND_AUTO_CREATE);
 
@@ -32,12 +31,7 @@ public abstract class BaseActivity extends BaseAppActivity implements ServiceCon
     @Override
     public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
         musicService = ((MusicService.MusicBinder) iBinder).getService();
-        try {
-            mMediaController = new MediaControllerCompat(mContext,musicService.getToken());
-            MediaControllerCompat.setMediaController(baseAppActivity,mMediaController);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
+            callback.onComplete(musicService.getToken());
     }
 
     @Override
@@ -45,4 +39,9 @@ public abstract class BaseActivity extends BaseAppActivity implements ServiceCon
 
     }
 
+    public void setCallBack(CallBack callBack){
+        this.callback = callBack;
+    }
+
 }
+

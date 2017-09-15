@@ -2,11 +2,16 @@ package com.brooke.sher.loginregistertest;
 
 import android.app.Service;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Binder;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.media.session.MediaSessionCompat;
+
+import com.brooke.sher.loginregistertest.data.MusicInfo;
+
+import java.io.IOException;
 
 /**
  * Created by Sher on 2017/9/10.
@@ -26,7 +31,16 @@ public class MusicService extends Service {
         public void onPlayFromMediaId(String mediaId, Bundle extras) {
             super.onPlayFromMediaId(mediaId, extras);
             //通过mediaid获取到当前的列表以及当前的音乐
-
+           MusicInfo info = (MusicInfo) extras.getSerializable("music");
+//           MusicInfo info =  extras.getParcelable("music");
+            MediaPlayer mediaPlayer = new MediaPlayer();
+            try {
+                mediaPlayer.setDataSource(info.getUrl());
+                mediaPlayer.prepare();
+                mediaPlayer.start();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         @Override
@@ -71,6 +85,7 @@ public class MusicService extends Service {
     public void onCreate() {
         super.onCreate();
         mediaSessionCompat = new MediaSessionCompat(this,"MusicService");
+        mediaSessionCompat.setCallback(callback);
     }
 
     @Override
