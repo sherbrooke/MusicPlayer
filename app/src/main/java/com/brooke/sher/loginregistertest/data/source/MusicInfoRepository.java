@@ -34,4 +34,9 @@ public class MusicInfoRepository {
     public List<MusicInfo> getMusic(Context context) {
         return mLocalMusicDataSource.getMusic(context);
     }
+
+    public List<MusicInfo> searchList(String tag){
+        return null;
+    }
+
 }

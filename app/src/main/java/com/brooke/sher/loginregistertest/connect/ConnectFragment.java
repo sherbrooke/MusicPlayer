@@ -6,10 +6,8 @@ import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.support.v4.media.session.MediaControllerCompat;
 import android.support.v4.media.session.MediaSessionCompat;
-import android.support.v4.media.session.PlaybackStateCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +20,7 @@ import com.brooke.sher.loginregistertest.connect.adapter.MusicAdapter;
 import com.brooke.sher.loginregistertest.data.MusicInfo;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -69,17 +68,16 @@ public class ConnectFragment extends BaseFragment implements ConnectContact.View
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                MusicInfo info = (MusicInfo) adapter.getData().get(position);
-                Log.i("ssss",info.getTilte());
-                Log.i("ssss",info.getUrl());
-                if (mMediaController != null && mMediaController.getPlaybackState() != null && mMediaController.getPlaybackState().getState() == PlaybackStateCompat.STATE_PLAYING){
-                    mMediaController.getTransportControls().pause();
-                }else {
-                    Bundle bundle = new Bundle();
-//                    bundle.putParcelable("music",info);
-                    bundle.putSerializable("music",info);
-                    mMediaController.getTransportControls().playFromMediaId(String.valueOf(info.getId()),bundle);
-                }
+                List<MusicInfo> infoList =  adapter.getData();
+                ArrayList<MusicInfo> arrayStrings = new ArrayList<>();
+                arrayStrings = (ArrayList<MusicInfo>) infoList;
+
+                MusicInfo info = infoList.get(position);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("music",info);
+                bundle.putParcelableArrayList("musicList",arrayStrings);
+                bundle.putInt("position",position);
+                mMediaController.getTransportControls().playFromMediaId(String.valueOf(info.getId()),bundle);
             }
         });
     }

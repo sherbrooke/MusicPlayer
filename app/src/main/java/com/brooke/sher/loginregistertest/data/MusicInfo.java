@@ -1,23 +1,31 @@
 package com.brooke.sher.loginregistertest.data;
 
+import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import java.io.Serializable;
 
 /**
  * Created by Sher on 2017/9/10.
  */
 
-public class MusicInfo implements Serializable {
+public class MusicInfo implements Parcelable {
     private int id;
     private String tilte;
     private String album;
+    private Bitmap bitmap;//专辑海报
     private String artist;
     private String url;
     private int  duration;
     private  long size;
     private String tag;
+
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
+    }
 
     public String getTag() {
         return tag;
@@ -83,46 +91,49 @@ public class MusicInfo implements Serializable {
         this.size = size;
     }
 
-//    @Override
-//    public int describeContents() {
-//        return 0;
-//    }
-//
-//    @Override
-//    public void writeToParcel(Parcel dest, int flags) {
-//        dest.writeInt(this.id);
-//        dest.writeString(this.tilte);
-//        dest.writeString(this.album);
-//        dest.writeString(this.artist);
-//        dest.writeString(this.url);
-//        dest.writeInt(this.duration);
-//        dest.writeLong(this.size);
-//        dest.writeString(this.tag);
-//    }
-//
-//    public MusicInfo() {
-//    }
-//
-//    protected MusicInfo(Parcel in) {
-//        this.id = in.readInt();
-//        this.tilte = in.readString();
-//        this.album = in.readString();
-//        this.artist = in.readString();
-//        this.url = in.readString();
-//        this.duration = in.readInt();
-//        this.size = in.readLong();
-//        this.tag = in.readString();
-//    }
-//
-//    public static final Parcelable.Creator<MusicInfo> CREATOR = new Parcelable.Creator<MusicInfo>() {
-//        @Override
-//        public MusicInfo createFromParcel(Parcel source) {
-//            return new MusicInfo(source);
-//        }
-//
-//        @Override
-//        public MusicInfo[] newArray(int size) {
-//            return new MusicInfo[size];
-//        }
-//    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeString(this.tilte);
+        dest.writeString(this.album);
+        dest.writeParcelable(this.bitmap, flags);
+        dest.writeString(this.artist);
+        dest.writeString(this.url);
+        dest.writeInt(this.duration);
+        dest.writeLong(this.size);
+        dest.writeString(this.tag);
+    }
+
+    public MusicInfo() {
+    }
+
+    protected MusicInfo(Parcel in) {
+        this.id = in.readInt();
+        this.tilte = in.readString();
+        this.album = in.readString();
+        this.bitmap = in.readParcelable(Bitmap.class.getClassLoader());
+        this.artist = in.readString();
+        this.url = in.readString();
+        this.duration = in.readInt();
+        this.size = in.readLong();
+        this.tag = in.readString();
+    }
+
+    public static final Parcelable.Creator<MusicInfo> CREATOR = new Parcelable.Creator<MusicInfo>() {
+        @Override
+        public MusicInfo createFromParcel(Parcel source) {
+            return new MusicInfo(source);
+        }
+
+        @Override
+        public MusicInfo[] newArray(int size) {
+            return new MusicInfo[size];
+        }
+    };
 }

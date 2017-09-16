@@ -1,14 +1,27 @@
 package com.brooke.sher.loginregistertest.data.source.local;
 
+import android.content.ContentUris;
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 
+import com.brooke.sher.loginregistertest.R;
 import com.brooke.sher.loginregistertest.data.MusicInfo;
 import com.brooke.sher.loginregistertest.data.source.MusicInfoSource;
 
+import java.io.FileDescriptor;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.os.Build.ID;
 
 /**
  * Created by wangyang on 2017/9/14.
@@ -17,7 +30,8 @@ import java.util.List;
 public class LocalMusicDataSource implements MusicInfoSource {
 
     private MusicInfo musicInfo;
-
+    private static final Uri sArtworkUri = Uri
+            .parse("content://media/external/audio/albumart");
     private static LocalMusicDataSource INSTANCE;
 
     private LocalMusicDataSource(){
@@ -59,6 +73,9 @@ public class LocalMusicDataSource implements MusicInfoSource {
             int  duration = cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DURATION));
 //歌曲文件的大小 ：MediaStore.Audio.Media.SIZE
             long size = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.SIZE));
+
+            int albumId = cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ALBUM_ID));
+           Bitmap bitmap = getMusicBitemp(context, id, albumId);
             musicInfo= new MusicInfo();
             musicInfo.setId(id);
             musicInfo.setTilte(tilte);
@@ -67,6 +84,7 @@ public class LocalMusicDataSource implements MusicInfoSource {
             musicInfo.setUrl(url);
             musicInfo.setDuration(duration);
             musicInfo.setSize(size);
+            musicInfo.setBitmap(bitmap);
 
             musicInfoList.add(musicInfo);
 
@@ -74,5 +92,51 @@ public class LocalMusicDataSource implements MusicInfoSource {
 
         cursor.close();
         return musicInfoList;
+    }
+
+
+    public static Bitmap getMusicBitemp(Context context, long songid,
+                                        long albumid) {
+        Bitmap bm = null;
+// 专辑id和歌曲id小于0说明没有专辑、歌曲，并抛出异常
+        if (albumid < 0 && songid < 0) {
+            throw new IllegalArgumentException(
+                    "Must specify an album or a song id");
+        }
+        try {
+            if (albumid < 0) {
+                Uri uri = Uri.parse("content://media/external/audio/media/"
+                        + songid + "/albumart");
+                ParcelFileDescriptor pfd = context.getContentResolver()
+                        .openFileDescriptor(uri, "r");
+                if (pfd != null) {
+                    FileDescriptor fd = pfd.getFileDescriptor();
+                    bm = BitmapFactory.decodeFileDescriptor(fd);
+                }
+            } else {
+                Uri uri = ContentUris.withAppendedId(sArtworkUri, albumid);
+                ParcelFileDescriptor pfd = context.getContentResolver()
+                        .openFileDescriptor(uri, "r");
+                if (pfd != null) {
+                    FileDescriptor fd = pfd.getFileDescriptor();
+                    bm = BitmapFactory.decodeFileDescriptor(fd);
+
+
+                } else {
+                    return null;
+                }
+            }
+        } catch (FileNotFoundException ex) {
+        }
+//如果获取的bitmap为空，则返回一个默认的bitmap
+        if (bm == null) {
+            Resources resources = context.getResources();
+            Drawable drawable = resources.getDrawable(R.mipmap.ic_launcher);
+            //Drawable 转 Bitmap
+            BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+            bm = bitmapDrawable.getBitmap();
+        }
+
+        return Bitmap.createScaledBitmap(bm, 150, 150, true);
     }
 }
