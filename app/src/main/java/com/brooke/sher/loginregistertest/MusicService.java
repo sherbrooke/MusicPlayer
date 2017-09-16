@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.media.session.MediaSessionCompat;
+import android.text.TextUtils;
 
 import com.brooke.sher.loginregistertest.data.MusicInfo;
 
@@ -49,9 +50,15 @@ public class MusicService extends Service {
                         mediaPlayer.start();
                     }
                 }else{
-                    mediaPlayer.setDataSource(info.getUrl());
-                    mediaPlayer.prepare();
-                    mediaPlayer.start();
+                    if (!TextUtils.isEmpty(currentMediaId) && currentMediaId.equals(mediaId) ){
+                        mediaPlayer.start();
+                    }else {
+                        mediaPlayer.setDataSource(info.getUrl());
+                        mediaPlayer.prepare();
+                        mediaPlayer.start();
+                    }
+
+
                 }
                 currentMediaId = mediaId;
             } catch (IOException e) {
