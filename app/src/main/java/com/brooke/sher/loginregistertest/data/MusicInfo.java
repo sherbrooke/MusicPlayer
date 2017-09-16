@@ -1,5 +1,8 @@
 package com.brooke.sher.loginregistertest.data;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 
 /**

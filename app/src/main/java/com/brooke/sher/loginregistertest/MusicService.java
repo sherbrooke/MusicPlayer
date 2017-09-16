@@ -20,6 +20,9 @@ import java.io.IOException;
 public class MusicService extends Service {
 
     private MediaSessionCompat mediaSessionCompat;
+    private MediaPlayer mediaPlayer = new MediaPlayer();
+    private String currentMediaId;
+
     private MediaSessionCompat.Callback callback = new MediaSessionCompat.Callback() {
         @Override
         public void onPlay() {
@@ -30,17 +33,31 @@ public class MusicService extends Service {
         @Override
         public void onPlayFromMediaId(String mediaId, Bundle extras) {
             super.onPlayFromMediaId(mediaId, extras);
-            //通过mediaid获取到当前的列表以及当前的音乐
-           MusicInfo info = (MusicInfo) extras.getSerializable("music");
-//           MusicInfo info =  extras.getParcelable("music");
-            MediaPlayer mediaPlayer = new MediaPlayer();
             try {
-                mediaPlayer.setDataSource(info.getUrl());
-                mediaPlayer.prepare();
-                mediaPlayer.start();
+
+                //通过mediaid获取到当前的列表以及当前的音乐,如果mediaid相同那么跳转到音乐详情界面，如果不同，播放不同的音乐
+                MusicInfo info = (MusicInfo) extras.getSerializable("music");
+//           MusicInfo info =  extras.getParcelable("music");
+                if (mediaPlayer.isPlaying()){
+                    if (currentMediaId.equals(mediaId)){
+                        mediaPlayer.pause();
+                    }else{
+                        mediaPlayer.stop();
+                        mediaPlayer.reset();
+                        mediaPlayer.setDataSource(info.getUrl());
+                        mediaPlayer.prepare();
+                        mediaPlayer.start();
+                    }
+                }else{
+                    mediaPlayer.setDataSource(info.getUrl());
+                    mediaPlayer.prepare();
+                    mediaPlayer.start();
+                }
+                currentMediaId = mediaId;
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
         }
 
         @Override
