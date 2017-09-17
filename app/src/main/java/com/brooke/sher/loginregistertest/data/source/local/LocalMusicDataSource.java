@@ -21,8 +21,6 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.os.Build.ID;
-
 /**
  * Created by wangyang on 2017/9/14.
  */
