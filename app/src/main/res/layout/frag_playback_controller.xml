@@ -46,11 +46,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/ll_music_info"
-        android:src="@mipmap/ic_launcher_round" />
+        android:src="@drawable/a_9" />
 
     <ImageView
         android:id="@+id/iv_music_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher_round" />
+        android:src="@drawable/aab" />
 </LinearLayout>
