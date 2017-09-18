@@ -6,26 +6,43 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.brooke.sher.loginregistertest.mainui.MainActivity">
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tablayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:tabTextColor="@color/colorPrimary"
+        app:tabIndicatorHeight="0dp"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/colorAccent"
+        >
+    </android.support.design.widget.TabLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#f0f0f0"/>
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_width="match_parent" >
     </android.support.v4.view.ViewPager>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#f0f0f0"/>
-<android.support.design.widget.TabLayout
-    android:id="@+id/tablayout"
-    android:layout_width="match_parent"
-    android:layout_height="50dp"
-    app:tabTextColor="@color/colorPrimary"
-    app:tabIndicatorHeight="0dp"
-    app:tabMode="fixed"
-    app:tabSelectedTextColor="@color/colorAccent"
-    >
-</android.support.design.widget.TabLayout>
+        <android.support.v7.widget.CardView
+            android:id="@+id/controls_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            app:cardElevation="8dp">
+
+            <fragment android:name="com.brooke.sher.loginregistertest.playbackcontroller.PlayBackControllerFragment"
+                android:id="@+id/fragment_playback_controls"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                tools:layout="@layout/frag_playback_controller" />
+
+        </android.support.v7.widget.CardView>
+
+
 
 
 
