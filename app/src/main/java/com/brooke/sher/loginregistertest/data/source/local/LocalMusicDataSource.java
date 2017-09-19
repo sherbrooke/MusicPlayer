@@ -54,7 +54,8 @@ public class LocalMusicDataSource implements MusicInfoSource {
                 MediaStore.Audio.Media.ARTIST,
                 MediaStore.Audio.Media.DURATION,
                 MediaStore.Audio.Media.SIZE,
-                MediaStore.Audio.Media.DATA}, null, null, null);
+                MediaStore.Audio.Media.DATA,
+                MediaStore.Audio.Media.ALBUM_ID}, null, null, null);
         cursor.moveToFirst();
         do{
             //歌曲ID：MediaStore.Audio.Media._ID
@@ -72,8 +73,9 @@ public class LocalMusicDataSource implements MusicInfoSource {
 //歌曲文件的大小 ：MediaStore.Audio.Media.SIZE
             long size = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.SIZE));
 
-            int albumId = cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ALBUM_ID));
-           Bitmap bitmap = getMusicBitemp(context, id, albumId);
+//            int albumId = cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ALBUM_ID));
+            long albumId = cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID));
+            Bitmap bitmap = getMusicBitemp(context, id, albumId);
             musicInfo= new MusicInfo();
             musicInfo.setId(id);
             musicInfo.setTilte(tilte);
