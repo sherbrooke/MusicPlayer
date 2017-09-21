@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.media.session.MediaSessionCompat;
 
 import com.brooke.sher.loginregistertest.utils.MusicHelper;
@@ -16,6 +18,7 @@ import com.brooke.sher.loginregistertest.utils.MusicHelper;
 public class MusicService extends Service {
 
     private MediaSessionCompat mediaSessionCompat;
+    private NotificationManagerCompat mNotificationManager;
 
     @Nullable
     @Override
@@ -34,6 +37,9 @@ public class MusicService extends Service {
         super.onCreate();
         mediaSessionCompat = new MediaSessionCompat(this,"MusicService");
         MusicHelper musicHelper = new MusicHelper(mediaSessionCompat);
+        mNotificationManager = NotificationManagerCompat.from(this);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this,"MusicService");
+
     }
 
     @Override

@@ -37,7 +37,8 @@ public class MusicHelper {
         @Override
         public void onPlay() {
             super.onPlay();
-
+            mediaPlayer.start();
+            updatePlaybackState(PlaybackStateCompat.STATE_PLAYING);
         }
 
         @Override
@@ -118,6 +119,8 @@ public class MusicHelper {
         @Override
         public void onPause() {
             super.onPause();
+            mediaPlayer.pause();
+            updatePlaybackState(PlaybackStateCompat.STATE_PAUSED);
         }
 
         @Override
