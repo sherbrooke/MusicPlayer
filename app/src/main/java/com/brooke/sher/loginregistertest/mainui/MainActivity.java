@@ -7,8 +7,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
-import com.brooke.sher.loginregistertest.R;
 import com.brooke.sher.loginregistertest.BaseActivity;
+import com.brooke.sher.loginregistertest.R;
 
 import java.util.List;
 
@@ -72,6 +72,5 @@ public class MainActivity extends BaseActivity implements MainUiContact.View{
             return fragments.get(position);
         }
     }
-
 
 }

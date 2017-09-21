@@ -85,6 +85,7 @@ public class LocalMusicDataSource implements MusicInfoSource {
             musicInfo.setDuration(duration);
             musicInfo.setSize(size);
             musicInfo.setBitmap(bitmap);
+            musicInfo.setAlumbId(albumId);
 
             musicInfoList.add(musicInfo);
 

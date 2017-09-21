@@ -13,8 +13,7 @@ public class QueueManager {
     private List<MusicInfo> musicInfos;
     private int position;
 
-    //    设置当前播放的队列
-    public void setCurrentQueue(List<MusicInfo> musicInfos,int index){
+    public QueueManager(List<MusicInfo> musicInfos,int index){
         this.musicInfos = musicInfos;
         this.position = index;
     }

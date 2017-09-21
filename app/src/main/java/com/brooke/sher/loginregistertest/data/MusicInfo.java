@@ -18,6 +18,15 @@ public class MusicInfo implements Parcelable {
     private int  duration;
     private  long size;
     private String tag;
+    private long alumbId;
+
+    public long getAlumbId() {
+        return alumbId;
+    }
+
+    public void setAlumbId(long alumbId) {
+        this.alumbId = alumbId;
+    }
 
     public Bitmap getBitmap() {
         return bitmap;

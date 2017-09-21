@@ -13,8 +13,11 @@ import android.support.v4.media.session.MediaControllerCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
 
 import com.brooke.sher.loginregistertest.connect.CallBack;
+import com.brooke.sher.loginregistertest.data.event.TokenEvent;
 import com.brooke.sher.loginregistertest.playbackcontroller.PlayBackControllerFragment;
 import com.sher.android2.ui.BaseAppActivity;
+
+import org.greenrobot.eventbus.EventBus;
 
 
 /**
@@ -56,6 +59,11 @@ public abstract class BaseActivity extends BaseAppActivity implements ServiceCon
             e.printStackTrace();
         }
         mMediaController.registerCallback(mMediaControllerCallback);
+
+        EventBus.getDefault().post(new TokenEvent(musicService.getToken()));
+        if (callback!=null)
+            callback.onComplete(musicService.getToken());
+
         boolean shou = shouldShowControls();
         if (shou) {
             showPlaybackControls();
@@ -63,8 +71,7 @@ public abstract class BaseActivity extends BaseAppActivity implements ServiceCon
             hidePlaybackControls();
         }
 
-        if (callback!=null)
-            callback.onComplete(musicService.getToken());
+
     }
 
     @Override
@@ -126,6 +133,10 @@ public abstract class BaseActivity extends BaseAppActivity implements ServiceCon
                 }
             };
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 
 }
 
