@@ -1,8 +1,8 @@
-package com.brooke.sher.loginregistertest.data.source;
+package com.sher.data.source;
 
 import android.content.Context;
 
-import com.brooke.sher.loginregistertest.data.MusicInfo;
+import com.sher.data.MusicInfo;
 
 import java.util.List;
 

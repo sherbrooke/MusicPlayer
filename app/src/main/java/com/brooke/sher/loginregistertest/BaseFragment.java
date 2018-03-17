@@ -2,7 +2,7 @@ package com.brooke.sher.loginregistertest;
 
 import android.os.Bundle;
 
-import com.sher.android2.ui.fragment.BaseAppFragment;
+import com.brooke.sher.app2.ui.fragment.BaseAppFragment;
 
 
 /**

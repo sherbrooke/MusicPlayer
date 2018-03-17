@@ -1,6 +1,6 @@
 package com.brooke.sher.loginregistertest.utils;
 
-import com.brooke.sher.loginregistertest.data.MusicInfo;
+import com.sher.data.MusicInfo;
 
 import java.util.List;
 

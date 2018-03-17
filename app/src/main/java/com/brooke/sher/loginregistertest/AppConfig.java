@@ -2,7 +2,7 @@ package com.brooke.sher.loginregistertest;
 
 import android.content.Context;
 
-import com.sher.android2.BaseAppConfig;
+import com.brooke.sher.app2.BaseAppConfig;
 
 
 /**

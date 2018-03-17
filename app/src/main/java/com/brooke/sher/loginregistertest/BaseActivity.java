@@ -12,10 +12,10 @@ import android.support.v4.media.MediaMetadataCompat;
 import android.support.v4.media.session.MediaControllerCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
 
+import com.brooke.sher.app2.ui.BaseAppActivity;
 import com.brooke.sher.loginregistertest.connect.CallBack;
 import com.brooke.sher.loginregistertest.data.event.TokenEvent;
 import com.brooke.sher.loginregistertest.playbackcontroller.PlayBackControllerFragment;
-import com.sher.android2.ui.BaseAppActivity;
 
 import org.greenrobot.eventbus.EventBus;
 

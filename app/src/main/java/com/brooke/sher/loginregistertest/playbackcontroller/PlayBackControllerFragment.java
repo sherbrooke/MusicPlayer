@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.brooke.sher.loginregistertest.BaseFragment;
 import com.brooke.sher.loginregistertest.R;
-import com.brooke.sher.loginregistertest.data.MusicInfo;
+import com.sher.data.MusicInfo;
 import com.brooke.sher.loginregistertest.data.event.TokenEvent;
 import com.bumptech.glide.Glide;
 

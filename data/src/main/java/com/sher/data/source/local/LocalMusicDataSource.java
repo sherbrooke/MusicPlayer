@@ -1,4 +1,4 @@
-package com.brooke.sher.loginregistertest.data.source.local;
+package com.sher.data.source.local;
 
 import android.content.ContentUris;
 import android.content.Context;
@@ -12,9 +12,9 @@ import android.net.Uri;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 
-import com.brooke.sher.loginregistertest.R;
-import com.brooke.sher.loginregistertest.data.MusicInfo;
-import com.brooke.sher.loginregistertest.data.source.MusicInfoSource;
+import com.sher.data.MusicInfo;
+import com.sher.data.R;
+import com.sher.data.source.MusicInfoSource;
 
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;

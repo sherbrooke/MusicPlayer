@@ -3,8 +3,7 @@ package com.brooke.sher.loginregistertest.register.submitaccount;
 
 import android.util.Log;
 
-import com.brooke.sher.loginregistertest.net.HttpMethods;
-import com.sher.android2.entity.BaseHttpResult;
+import com.brooke.sher.app2.entity.BaseHttpResult;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -59,7 +58,14 @@ public class SubmitAccountInfoPresenter implements SubmitAccountInfoContact.Pres
 
             }
         };
-        HttpMethods.getInstance().register(observable,username,passwd,phone);
+//        HttpMethods.getInstance().register(observable,username,passwd,phone);
+
+
+
+
+
+
+
 //        Observer<BaseObject> observable = new Observer<BaseObject>() {
 //            @Override
 //            public void onSubscribe(Disposable d) {

@@ -2,10 +2,10 @@ package com.brooke.sher.loginregistertest.login;
 
 import android.text.TextUtils;
 
-import com.brooke.sher.loginregistertest.data.UserInfo;
-import com.brooke.sher.loginregistertest.data.source.UserInfoRepository;
-import com.brooke.sher.loginregistertest.data.source.local.LocalUserDataSource;
-import com.brooke.sher.loginregistertest.data.source.remote.RemoteUserDataSource;
+import com.sher.data.UserInfo;
+import com.sher.data.source.UserInfoRepository;
+import com.sher.data.source.local.LocalUserDataSource;
+import com.sher.data.source.remote.RemoteUserDataSource;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;

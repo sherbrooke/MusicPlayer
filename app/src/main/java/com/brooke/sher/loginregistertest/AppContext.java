@@ -1,7 +1,7 @@
 package com.brooke.sher.loginregistertest;
 
 
-import com.sher.android2.BaseAppContext;
+import com.brooke.sher.app2.BaseAppContext;
 
 /**
  * Created by Sher on 2017/8/20.

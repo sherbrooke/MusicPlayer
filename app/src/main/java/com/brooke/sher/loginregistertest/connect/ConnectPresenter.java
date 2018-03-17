@@ -2,9 +2,9 @@ package com.brooke.sher.loginregistertest.connect;
 
 import android.content.Context;
 
-import com.brooke.sher.loginregistertest.data.MusicInfo;
-import com.brooke.sher.loginregistertest.data.source.MusicInfoRepository;
-import com.brooke.sher.loginregistertest.data.source.local.LocalMusicDataSource;
+import com.sher.data.MusicInfo;
+import com.sher.data.source.MusicInfoRepository;
+import com.sher.data.source.local.LocalMusicDataSource;
 
 import java.util.List;
 

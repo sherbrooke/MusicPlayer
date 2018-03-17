@@ -1,4 +1,4 @@
-package com.brooke.sher.loginregistertest.data;
+package com.sher.data;
 
 /**
  * Created by Sher on 2017/8/20.

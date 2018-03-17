@@ -1,10 +1,10 @@
-package com.brooke.sher.loginregistertest.data.source;
+package com.sher.data.source;
 
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.brooke.sher.loginregistertest.data.UserInfo;
+import com.sher.data.UserInfo;
 
 import io.reactivex.Observable;
 

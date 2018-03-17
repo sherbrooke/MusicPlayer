@@ -17,7 +17,7 @@ import com.brooke.sher.loginregistertest.BaseFragment;
 import com.brooke.sher.loginregistertest.MusicService;
 import com.brooke.sher.loginregistertest.R;
 import com.brooke.sher.loginregistertest.connect.adapter.MusicAdapter;
-import com.brooke.sher.loginregistertest.data.MusicInfo;
+import com.sher.data.MusicInfo;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import java.util.ArrayList;

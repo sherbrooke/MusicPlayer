@@ -1,8 +1,8 @@
-package com.brooke.sher.loginregistertest.data.source.local;
+package com.sher.data.source.local;
 
 
-import com.brooke.sher.loginregistertest.data.UserInfo;
-import com.brooke.sher.loginregistertest.data.source.UserDataSource;
+import com.sher.data.UserInfo;
+import com.sher.data.source.UserDataSource;
 
 import io.reactivex.Observable;
 

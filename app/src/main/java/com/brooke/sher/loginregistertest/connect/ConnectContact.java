@@ -2,7 +2,7 @@ package com.brooke.sher.loginregistertest.connect;
 
 import com.brooke.sher.loginregistertest.BasePresenter;
 import com.brooke.sher.loginregistertest.BaseView;
-import com.brooke.sher.loginregistertest.data.MusicInfo;
+import com.sher.data.MusicInfo;
 
 import java.util.List;
 

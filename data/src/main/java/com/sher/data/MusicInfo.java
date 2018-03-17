@@ -1,4 +1,4 @@
-package com.brooke.sher.loginregistertest.data;
+package com.sher.data;
 
 import android.graphics.Bitmap;
 import android.os.Parcel;

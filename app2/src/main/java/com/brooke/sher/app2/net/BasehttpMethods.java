@@ -117,4 +117,9 @@ public abstract class BasehttpMethods {
                 })
                 .build();
     }
+
+    public Retrofit getRetrofit() {
+        return retrofit;
+    }
+
 }

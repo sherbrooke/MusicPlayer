@@ -1,9 +1,8 @@
-package com.brooke.sher.loginregistertest.data.source.remote;
+package com.sher.data.source.remote;
 
 
-import com.brooke.sher.loginregistertest.data.UserInfo;
-import com.brooke.sher.loginregistertest.data.source.UserDataSource;
-import com.brooke.sher.loginregistertest.net.HttpMethods;
+import com.sher.data.UserInfo;
+import com.sher.data.source.UserDataSource;
 
 import io.reactivex.Observable;
 
@@ -28,6 +27,7 @@ public class RemoteUserDataSource implements UserDataSource {
 
     @Override
     public Observable<UserInfo> login(String phone, String passwd) {
-        return  HttpMethods.getInstance().login(passwd, phone);
+//        return  HttpMethods.getInstance().login(passwd, phone);
+        return null;
     }
 }

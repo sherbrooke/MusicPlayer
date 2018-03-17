@@ -4,7 +4,7 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 
 import com.brooke.sher.loginregistertest.R;
-import com.brooke.sher.loginregistertest.data.MusicInfo;
+import com.sher.data.MusicInfo;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
