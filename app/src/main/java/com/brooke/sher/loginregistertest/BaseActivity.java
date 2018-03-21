@@ -33,6 +33,9 @@ public abstract class BaseActivity extends BaseAppActivity implements ServiceCon
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
         Intent intent = new Intent(mContext, MusicService.class);
         bindService(intent,this, Context.BIND_AUTO_CREATE);
 
