@@ -27,10 +27,13 @@ public class MusicHelper {
     private MediaSessionCompat mediaSessionCompat;
     PlaybackStateCompat.Builder stateBuilder = new PlaybackStateCompat.Builder();
     PlaybackStateCompat playbackStateCompat;
+    private PlaybackServiceCallback mServiceCallback;
 
-    public MusicHelper(MediaSessionCompat sessionCompat){
+
+    public MusicHelper(MediaSessionCompat sessionCompat,PlaybackServiceCallback serviceCallback){
         this.mediaSessionCompat = sessionCompat;
         mediaSessionCompat.setCallback(callback);
+        mServiceCallback = serviceCallback;
     }
 
     private MediaSessionCompat.Callback callback = new MediaSessionCompat.Callback() {
@@ -141,6 +144,11 @@ public class MusicHelper {
     private void updatePlaybackState(int statePaused) {
         playbackStateCompat = stateBuilder.setState(statePaused, 0, 1.0f, SystemClock.elapsedRealtime()).build();
         mediaSessionCompat.setPlaybackState(playbackStateCompat);
+        if (statePaused == PlaybackStateCompat.STATE_PLAYING ||
+                statePaused == PlaybackStateCompat.STATE_PAUSED) {
+            mServiceCallback.onNotificationRequired();
+        }
+
     }
     private void updateMetaData(MusicInfo info) {
         mediaSessionCompat.setMetadata(CreateMetaData(info));
@@ -176,5 +184,16 @@ public class MusicHelper {
                 .putLong(MediaMetadataCompat.METADATA_KEY_DURATION, info.getDuration())
                 .putBitmap(MediaMetadataCompat.METADATA_KEY_ALBUM_ART, info.getBitmap())
                 .build();
+    }
+
+
+    public interface PlaybackServiceCallback {
+        void onPlaybackStart();
+
+        void onNotificationRequired();
+
+        void onPlaybackStop();
+
+        void onPlaybackStateUpdated(PlaybackStateCompat newState);
     }
 }

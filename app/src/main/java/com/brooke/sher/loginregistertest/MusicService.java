@@ -6,8 +6,8 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.media.session.MediaSessionCompat;
+import android.support.v4.media.session.PlaybackStateCompat;
 
 import com.brooke.sher.loginregistertest.utils.MusicHelper;
 
@@ -15,10 +15,10 @@ import com.brooke.sher.loginregistertest.utils.MusicHelper;
  * Created by Sher on 2017/9/10.
  */
 
-public class MusicService extends Service {
+public class MusicService extends Service implements MusicHelper.PlaybackServiceCallback{
 
     private MediaSessionCompat mediaSessionCompat;
-    private NotificationManagerCompat mNotificationManager;
+    private MediaNotificationManager mNotificationManager;
 
     @Nullable
     @Override
@@ -36,8 +36,8 @@ public class MusicService extends Service {
     public void onCreate() {
         super.onCreate();
         mediaSessionCompat = new MediaSessionCompat(this,"MusicService");
-        MusicHelper musicHelper = new MusicHelper(mediaSessionCompat);
-        mNotificationManager = NotificationManagerCompat.from(this);
+        MusicHelper musicHelper = new MusicHelper(mediaSessionCompat,this);
+        mNotificationManager = new MediaNotificationManager(this);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this,"MusicService");
 
     }
@@ -52,5 +52,29 @@ public class MusicService extends Service {
         return mediaSessionCompat.getSessionToken();
     }
 
+    @Override
+    public void onPlaybackStart() {
 
+    }
+
+    @Override
+    public void onNotificationRequired() {
+        mNotificationManager.startNotification();
+    }
+
+    @Override
+    public void onPlaybackStop() {
+
+    }
+
+    @Override
+    public void onPlaybackStateUpdated(PlaybackStateCompat newState) {
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mNotificationManager.stopNotification();
+    }
 }
