@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.brooke.sher.loginregistertest.BaseFragment;
@@ -35,6 +36,7 @@ public class PlayBackControllerFragment extends BaseFragment  {
     private ImageView ivMenu;
     private TextView tvTitle;
     private TextView tvArtist;
+    private ProgressBar pbProgress;
 
     private MusicInfo musicInfo;
 
@@ -84,6 +86,7 @@ public class PlayBackControllerFragment extends BaseFragment  {
     }
 
     private void initView(View view) {
+        pbProgress = view.findViewById(R.id.pb_progress);
         ivThumb = view.findViewById(R.id.iv_thumb);
         ivPauseOrplaying = view.findViewById(R.id.iv_play_or_pause);
         ivMenu = view.findViewById(R.id.iv_music_list);
@@ -122,6 +125,8 @@ public class PlayBackControllerFragment extends BaseFragment  {
             e.printStackTrace();
         }
     }
+
+
 
 
 }

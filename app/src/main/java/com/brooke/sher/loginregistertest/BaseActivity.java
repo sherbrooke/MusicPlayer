@@ -1,13 +1,17 @@
 package com.brooke.sher.loginregistertest;
 
+import android.Manifest;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.media.MediaMetadataCompat;
 import android.support.v4.media.session.MediaControllerCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
@@ -18,6 +22,9 @@ import com.brooke.sher.loginregistertest.data.event.TokenEvent;
 import com.brooke.sher.loginregistertest.playbackcontroller.PlayBackControllerFragment;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -33,11 +40,59 @@ public abstract class BaseActivity extends BaseAppActivity implements ServiceCon
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
+            int hasWritePermission = checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            int hasReadPermission = checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE);
 
+            List<String> permissions = new ArrayList<String>();
+            if (hasWritePermission != PackageManager.PERMISSION_GRANTED) {
+                permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            } else {
+//              preferencesUtility.setString("storage", "true");
+            }
+
+            if (hasReadPermission != PackageManager.PERMISSION_GRANTED) {
+                permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+
+            } else {
+//              preferencesUtility.setString("storage", "true");
+            }
+
+            if (!permissions.isEmpty()) {
+//              requestPermissions(permissions.toArray(new String[permissions.size()]), REQUEST_CODE_SOME_FEATURES_PERMISSIONS);
+
+                ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE },
+                        0);
+            }
+        }
 
         Intent intent = new Intent(mContext, MusicService.class);
+        startService(intent);
         bindService(intent,this, Context.BIND_AUTO_CREATE);
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case 0: {
+                for (int i = 0; i < permissions.length; i++) {
+                    if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+
+
+                        System.out.println("Permissions --> " + "Permission Granted: " + permissions[i]);
+                    } else if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
+                        System.out.println("Permissions --> " + "Permission Denied: " + permissions[i]);
+                    }
+                }
+            }
+            break;
+            default: {
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+            }
+        }
+
 
     }
 
@@ -51,6 +106,13 @@ public abstract class BaseActivity extends BaseAppActivity implements ServiceCon
         }
 
         hidePlaybackControls();
+
+
+        if (mMediaController!=null
+//                && (long)(mMediaController.getPlaybackState().getPlaybackState()) == PlaybackStateCompat.STATE_PLAYING
+                ){
+            showPlaybackControls();
+        }
     }
 
     @Override
@@ -105,7 +167,7 @@ public abstract class BaseActivity extends BaseAppActivity implements ServiceCon
     protected void showPlaybackControls() {
         getSupportFragmentManager().beginTransaction()
                     .show(mControlsFragment)
-                    .commit();
+                    .commitAllowingStateLoss();
     }
 
     protected void hidePlaybackControls() {
