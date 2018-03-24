@@ -1,5 +1,7 @@
 package com.brooke.sher.loginregistertest.utils;
 
+import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -29,17 +31,26 @@ public class MusicHelper {
     PlaybackStateCompat playbackStateCompat;
     private PlaybackServiceCallback mServiceCallback;
 
+    private static final int AUDIO_NO_FOCUS_NO_DUCK = 0;
+    private int mCurrentAudioFocusState = AUDIO_NO_FOCUS_NO_DUCK;
+    private static final int AUDIO_NO_FOCUS_CAN_DUCK = 1;
+    // we have full audio focus
+    private static final int AUDIO_FOCUSED = 2;
 
-    public MusicHelper(MediaSessionCompat sessionCompat,PlaybackServiceCallback serviceCallback){
+    private final AudioManager mAudioManager;
+
+    public MusicHelper(Context context,MediaSessionCompat sessionCompat, PlaybackServiceCallback serviceCallback){
         this.mediaSessionCompat = sessionCompat;
         mediaSessionCompat.setCallback(callback);
         mServiceCallback = serviceCallback;
+        mAudioManager = (AudioManager) context.getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
     }
 
     private MediaSessionCompat.Callback callback = new MediaSessionCompat.Callback() {
         @Override
         public void onPlay() {
             super.onPlay();
+            tryToGetAudioFocus();
             mediaPlayer.start();
             updatePlaybackState(PlaybackStateCompat.STATE_PLAYING);
         }
@@ -47,6 +58,7 @@ public class MusicHelper {
         @Override
         public void onPlayFromMediaId(String mediaId, Bundle extras) {
             super.onPlayFromMediaId(mediaId, extras);
+            tryToGetAudioFocus();
             try {
                 //通过mediaid获取到当前的列表以及当前的音乐,如果mediaid相同那么跳转到音乐详情界面(目前是暂停逻辑)，如果不同，播放不同的音乐
                 extras.setClassLoader(getClass().getClassLoader());
@@ -185,6 +197,52 @@ public class MusicHelper {
                 .putBitmap(MediaMetadataCompat.METADATA_KEY_ALBUM_ART, info.getBitmap())
                 .build();
     }
+
+    private void tryToGetAudioFocus() {
+        int result =
+                mAudioManager.requestAudioFocus(
+                        mOnAudioFocusChangeListener,
+                        AudioManager.STREAM_MUSIC,
+                        AudioManager.AUDIOFOCUS_GAIN);
+        if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+            mCurrentAudioFocusState = AUDIO_FOCUSED;
+        } else {
+            mCurrentAudioFocusState = AUDIO_NO_FOCUS_NO_DUCK;
+        }
+    }
+
+    private void giveUpAudioFocus() {
+        if (mAudioManager.abandonAudioFocus(mOnAudioFocusChangeListener)
+                == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+            mCurrentAudioFocusState = AUDIO_NO_FOCUS_NO_DUCK;
+        }
+    }
+    private final AudioManager.OnAudioFocusChangeListener mOnAudioFocusChangeListener =
+            new AudioManager.OnAudioFocusChangeListener() {
+                @Override
+                public void onAudioFocusChange(int focusChange) {
+                    switch (focusChange) {
+                        case AudioManager.AUDIOFOCUS_GAIN:
+                            mCurrentAudioFocusState = AUDIO_FOCUSED;
+                            break;
+                        case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
+                            // Audio focus was lost, but it's possible to duck (i.e.: play quietly)
+                            mCurrentAudioFocusState = AUDIO_NO_FOCUS_CAN_DUCK;
+                            break;
+                        case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:
+                            // Lost audio focus, but will gain it back (shortly), so note whether
+                            // playback should resume
+                            mCurrentAudioFocusState = AUDIO_NO_FOCUS_NO_DUCK;
+                            break;
+                        case AudioManager.AUDIOFOCUS_LOSS:
+                            // Lost audio focus, probably "permanently"
+                            mCurrentAudioFocusState = AUDIO_NO_FOCUS_NO_DUCK;
+                            break;
+                    }
+
+                }
+            };
+
 
 
     public interface PlaybackServiceCallback {

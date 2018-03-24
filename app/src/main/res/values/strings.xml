@@ -17,4 +17,11 @@
     <string name="not_have_account_yet_go_register"><u>还没有账号，去注册</u></string>
     <string name="already_have_account_go_login"><u>已有账号，去登录</u></string>
     <string name="get_vertify_code">获取验证码</string>
+
+    <string name="stop_casting">Stop Casting</string>
+    <string name="label_pause">Pause</string>
+    <string name="label_play">Play</string>
+    <string name="label_previous">Previous</string>
+    <string name="label_next">Next</string>
+    <string name="casting_to_device">Casting to %1$s</string>
 </resources>
