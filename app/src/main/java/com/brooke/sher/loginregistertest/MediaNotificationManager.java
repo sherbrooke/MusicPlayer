@@ -196,6 +196,7 @@ public class MediaNotificationManager extends BroadcastReceiver{
         int playPauseButtonPosition = 0;
 
         // If skip to previous action is enabled
+
         if ((mPlaybackState.getActions() & PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS) != 0) {
             notificationBuilder.addAction(R.drawable.ic_skip_previous_white_24dp,
                     service.getString(R.string.label_previous), mPreviousIntent);
@@ -274,10 +275,8 @@ public class MediaNotificationManager extends BroadcastReceiver{
                         mMetadata.getDescription().getIconUri().toString().equals(artUrl)) {
                     // If the media is still the same, update the notification:
                     builder.setLargeIcon(bitmap);
-                    Log.i("ssss","onNotificationRequired");
                     mNotificationManager.notify(NOTIFICATION_ID, builder.build());
                 }else{
-                    Log.i("ssss","onNotificationRequired1");
                     mNotificationManager.notify(NOTIFICATION_ID, builder.build());
                 }
             }
@@ -337,7 +336,7 @@ public class MediaNotificationManager extends BroadcastReceiver{
     @Override
     public void onReceive(Context context, Intent intent) {
         final String action = intent.getAction();
-        Log.d("ssss", "Received intent with action ");
+        Log.i("ssss","getaction"+action);
         switch (action) {
             case ACTION_PAUSE:
                 mTransportControls.pause();
@@ -346,6 +345,7 @@ public class MediaNotificationManager extends BroadcastReceiver{
                 mTransportControls.play();
                 break;
             case ACTION_NEXT:
+                Log.i("ssss","exec next");
                 mTransportControls.skipToNext();
                 break;
             case ACTION_PREV:

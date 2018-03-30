@@ -38,11 +38,13 @@ public class MusicHelper {
     private static final int AUDIO_FOCUSED = 2;
 
     private final AudioManager mAudioManager;
+    private Context context;
 
     public MusicHelper(Context context,MediaSessionCompat sessionCompat, PlaybackServiceCallback serviceCallback){
         this.mediaSessionCompat = sessionCompat;
         mediaSessionCompat.setCallback(callback);
         mServiceCallback = serviceCallback;
+        this.context = context;
         mAudioManager = (AudioManager) context.getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
     }
 
@@ -97,30 +99,7 @@ public class MusicHelper {
                 e.printStackTrace();
             }
 
-            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mediaPlayer) {
-
-                    //循环播放
-                    if (infoList.size() <= pos + 1) {
-                        pos = -1;
-                    }
-                    MusicInfo info = infoList.get(pos + 1);
-                    try {
-                        changeMetaData(info.getUrl());
-                        updateMetaData(info);
-//                                mediaPlayer.reset();
-//                                mediaPlayer.setDataSource(info.getUrl());
-//                                mediaPlayer.prepare();
-//                                mediaPlayer.start();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    updatePlaybackState(PlaybackStateCompat.STATE_PLAYING);
-                    pos++;
-                    currentMediaId = String.valueOf(info.getId());
-                }
-            });
+            updateMusicToNext();
             currentMediaId = mediaId;
 
 
@@ -141,11 +120,15 @@ public class MusicHelper {
         @Override
         public void onSkipToNext() {
             super.onSkipToNext();
+            playNextMusic();
+            updateMusicToNext();
         }
 
         @Override
         public void onSkipToPrevious() {
             super.onSkipToPrevious();
+            playPreviousMusic();
+            updateMusicToNext();
         }
 
         @Override
@@ -153,8 +136,54 @@ public class MusicHelper {
             super.onSeekTo(pos);
         }
     };
+
+
+    private void updateMusicToNext(){
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                playNextMusic();
+
+            }
+        });
+    }
+
+    private void playPreviousMusic() {
+        if (pos == 0){
+            pos = infoList.size();
+            return;
+        }
+        MusicInfo info = infoList.get(pos - 1);
+        try {
+            changeMetaData(info.getUrl());
+            updateMetaData(info);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        updatePlaybackState(PlaybackStateCompat.STATE_PLAYING);
+        pos--;
+        currentMediaId = String.valueOf(info.getId());
+    }
+
+    private void playNextMusic() {
+        //循环播放
+        if (infoList.size() <= pos + 1) {
+            pos = -1;
+        }
+        MusicInfo info = infoList.get(pos + 1);
+        try {
+            changeMetaData(info.getUrl());
+            updateMetaData(info);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        updatePlaybackState(PlaybackStateCompat.STATE_PLAYING);
+        pos++;
+        currentMediaId = String.valueOf(info.getId());
+    }
     private void updatePlaybackState(int statePaused) {
-        playbackStateCompat = stateBuilder.setState(statePaused, 0, 1.0f, SystemClock.elapsedRealtime()).build();
+        playbackStateCompat = stateBuilder.setActions(getAvailableActions())
+                .setState(statePaused, 0, 1.0f, SystemClock.elapsedRealtime()).build();
         mediaSessionCompat.setPlaybackState(playbackStateCompat);
         if (statePaused == PlaybackStateCompat.STATE_PLAYING ||
                 statePaused == PlaybackStateCompat.STATE_PAUSED) {
@@ -162,6 +191,22 @@ public class MusicHelper {
         }
 
     }
+
+    private long getAvailableActions() {
+        long actions =
+                PlaybackStateCompat.ACTION_PLAY_PAUSE |
+                        PlaybackStateCompat.ACTION_PLAY_FROM_MEDIA_ID |
+                        PlaybackStateCompat.ACTION_PLAY_FROM_SEARCH |
+                        PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS |
+                        PlaybackStateCompat.ACTION_SKIP_TO_NEXT;
+        if (mediaPlayer.isPlaying()) {
+            actions |= PlaybackStateCompat.ACTION_PAUSE;
+        } else {
+            actions |= PlaybackStateCompat.ACTION_PLAY;
+        }
+        return actions;
+    }
+
     private void updateMetaData(MusicInfo info) {
         mediaSessionCompat.setMetadata(CreateMetaData(info));
     }
