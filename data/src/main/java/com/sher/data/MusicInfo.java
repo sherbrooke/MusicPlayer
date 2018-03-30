@@ -1,6 +1,5 @@
 package com.sher.data;
 
-import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -12,7 +11,7 @@ public class MusicInfo implements Parcelable {
     private int id;
     private String tilte;
     private String album;
-    private Bitmap bitmap;//专辑海报
+    private String bitmap;//专辑海报
     private String artist;
     private String url;
     private int  duration;
@@ -28,11 +27,11 @@ public class MusicInfo implements Parcelable {
         this.alumbId = alumbId;
     }
 
-    public Bitmap getBitmap() {
+    public String getBitmap() {
         return bitmap;
     }
 
-    public void setBitmap(Bitmap bitmap) {
+    public void setBitmap(String bitmap) {
         this.bitmap = bitmap;
     }
 
@@ -111,7 +110,7 @@ public class MusicInfo implements Parcelable {
         dest.writeInt(this.id);
         dest.writeString(this.tilte);
         dest.writeString(this.album);
-        dest.writeParcelable(this.bitmap, flags);
+        dest.writeString(this.bitmap);
         dest.writeString(this.artist);
         dest.writeString(this.url);
         dest.writeInt(this.duration);
@@ -126,7 +125,7 @@ public class MusicInfo implements Parcelable {
         this.id = in.readInt();
         this.tilte = in.readString();
         this.album = in.readString();
-        this.bitmap = in.readParcelable(Bitmap.class.getClassLoader());
+        this.bitmap = in.readString();
         this.artist = in.readString();
         this.url = in.readString();
         this.duration = in.readInt();
