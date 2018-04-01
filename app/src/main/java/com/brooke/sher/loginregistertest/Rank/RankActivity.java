@@ -42,6 +42,7 @@ public class RankActivity extends BaseActivity implements HttpCallback, CallBack
         setContentView(R.layout.activity_rank);
         Intent intent = getIntent();
         index = intent.getIntExtra("index",0);
+        Log.i("ssss",index+"index");
         presenter = new ConnectPresenter(mContext);
         rvList = findViewById(R.id.rv_list);
         rvList.setLayoutManager(new LinearLayoutManager(mContext));
@@ -61,9 +62,13 @@ public class RankActivity extends BaseActivity implements HttpCallback, CallBack
     @Override
     public void onComplete(Response response) {
         musicInfoLists = (List<List<MusicInfo>>) (response.body());
+        Log.i("ssss",index+"index1");
         musicInfoList  = musicInfoLists.get(index);
-
+//                for (MusicInfo musicInfo : musicInfoList){
+//                    Log.i("ssss",musicInfo.getName());
+//                }
         adapter = new MusicAdapter(R.layout.item_music,musicInfoList);
+        adapter.notifyDataSetChanged();
         rvList.setAdapter(adapter);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -71,9 +76,9 @@ public class RankActivity extends BaseActivity implements HttpCallback, CallBack
                 List<MusicInfo> infoList =  adapter.getData();
                 ArrayList<MusicInfo> arrayStrings = new ArrayList<>();
                 arrayStrings = (ArrayList<MusicInfo>) infoList;
-                for (MusicInfo musicInfo : arrayStrings){
-                    Log.i("ssss",musicInfo.getName());
-                }
+//                for (MusicInfo musicInfo : arrayStrings){
+//                    Log.i("ssss",musicInfo.getName());
+//                }
                 MusicInfo info = infoList.get(position);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("music",info);
