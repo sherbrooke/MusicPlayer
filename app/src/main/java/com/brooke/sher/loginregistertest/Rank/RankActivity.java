@@ -7,6 +7,7 @@ import android.support.v4.media.session.MediaControllerCompat;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.brooke.sher.app2.net.HttpCallback;
@@ -70,7 +71,9 @@ public class RankActivity extends BaseActivity implements HttpCallback, CallBack
                 List<MusicInfo> infoList =  adapter.getData();
                 ArrayList<MusicInfo> arrayStrings = new ArrayList<>();
                 arrayStrings = (ArrayList<MusicInfo>) infoList;
-
+                for (MusicInfo musicInfo : arrayStrings){
+                    Log.i("ssss",musicInfo.getName());
+                }
                 MusicInfo info = infoList.get(position);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("music",info);

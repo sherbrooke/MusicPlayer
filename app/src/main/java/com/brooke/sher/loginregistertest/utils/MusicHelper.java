@@ -192,7 +192,7 @@ public class MusicHelper {
                 .putLong(MediaMetadataCompat.METADATA_KEY_TRACK_NUMBER,info.getAlumbId())
                 .putString(MediaMetadataCompat.METADATA_KEY_TITLE,info.getName())
                 .putString(MediaMetadataCompat.METADATA_KEY_MEDIA_ID,info.getId()+"")
-                .putString(MediaMetadataCompat.METADATA_KEY_ALBUM_ART_URI,info.getUrl())
+                .putString(MediaMetadataCompat.METADATA_KEY_ALBUM_ART_URI,info.getPic())
                 .putLong(MediaMetadataCompat.METADATA_KEY_DURATION, info.getDuration())
 //                .putString(MediaMetadataCompat.METADATA_KEY_ALBUM_ART, info.getPic())
                 .build();

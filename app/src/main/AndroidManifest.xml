@@ -41,7 +41,9 @@
             android:name=".MusicService"
             android:exported="true" />
 
-        <activity android:name=".Rank.RankActivity"></activity>
+        <activity android:name=".Rank.RankActivity"
+            android:launchMode="singleTask"
+            ></activity>
     </application>
 
 </manifest>
