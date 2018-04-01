@@ -194,7 +194,7 @@ public class MusicHelper {
                 .putString(MediaMetadataCompat.METADATA_KEY_MEDIA_ID,info.getId()+"")
                 .putString(MediaMetadataCompat.METADATA_KEY_ALBUM_ART_URI,info.getUrl())
                 .putLong(MediaMetadataCompat.METADATA_KEY_DURATION, info.getDuration())
-                .putString(MediaMetadataCompat.METADATA_KEY_ALBUM_ART, info.getPic())
+//                .putString(MediaMetadataCompat.METADATA_KEY_ALBUM_ART, info.getPic())
                 .build();
     }
 

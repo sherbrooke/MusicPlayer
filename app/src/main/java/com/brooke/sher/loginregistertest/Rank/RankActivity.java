@@ -7,7 +7,6 @@ import android.support.v4.media.session.MediaControllerCompat;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import com.brooke.sher.app2.net.HttpCallback;
@@ -51,7 +50,6 @@ public class RankActivity extends BaseActivity implements HttpCallback, CallBack
 
     @Override
     public void onComplete(MediaSessionCompat.Token token) {
-        Log.i("ssss","onComplete1");
         try {
             mMediaController = new MediaControllerCompat(mContext,token);
         } catch (RemoteException e) {
