@@ -4,7 +4,8 @@ import com.sher.data.MusicInfo;
 
 import java.util.List;
 
-import io.reactivex.Observable;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
 import retrofit2.http.GET;
 
 /**
@@ -13,7 +14,12 @@ import retrofit2.http.GET;
 
 public interface NetService {
 
-    @GET("/music")
-    Observable<List<List<MusicInfo>>> getMusic();
+    @GET("Music/music")
+//    Observable<List<List<MusicInfo>>> getMusic();
+    Call<List<List<MusicInfo>>> getMusic();
+
+    @GET("Music/music")
+//    Observable<List<List<MusicInfo>>> getMusic();
+    Call<ResponseBody> getMusics();
 
 }

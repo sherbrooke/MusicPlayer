@@ -15,6 +15,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.media.MediaMetadataCompat;
 import android.support.v4.media.session.MediaControllerCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
+import android.util.Log;
 
 import com.brooke.sher.app2.ui.BaseAppActivity;
 import com.brooke.sher.loginregistertest.connect.CallBack;
@@ -125,9 +126,13 @@ public abstract class BaseActivity extends BaseAppActivity implements ServiceCon
         }
         mMediaController.registerCallback(mMediaControllerCallback);
 
+//        ThreadLocal<MediaSessionCompat.Token> token = new ThreadLocal<>();
+//        token.set(musicService.getToken());
+
         EventBus.getDefault().post(new TokenEvent(musicService.getToken()));
-        if (callback!=null)
+        if (callback!=null){
             callback.onComplete(musicService.getToken());
+        }
 
         boolean shou = shouldShowControls();
         if (shou) {
@@ -201,6 +206,7 @@ public abstract class BaseActivity extends BaseAppActivity implements ServiceCon
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        unbindService(this);
     }
 
 }

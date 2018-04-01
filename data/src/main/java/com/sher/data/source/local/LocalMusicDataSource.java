@@ -14,7 +14,6 @@ import android.provider.MediaStore;
 
 import com.sher.data.MusicInfo;
 import com.sher.data.R;
-import com.sher.data.source.MusicInfoSource;
 
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
@@ -25,7 +24,7 @@ import java.util.List;
  * Created by wangyang on 2017/9/14.
  */
 
-public class LocalMusicDataSource implements MusicInfoSource {
+public class LocalMusicDataSource  {
 
     private MusicInfo musicInfo;
     private static final Uri sArtworkUri = Uri
@@ -44,7 +43,6 @@ public class LocalMusicDataSource implements MusicInfoSource {
     }
 
 
-    @Override
     public List<MusicInfo> getMusic(Context context) {
         List<MusicInfo>   musicInfoList = new ArrayList<>();
         Cursor cursor = context.getContentResolver().query( MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,  new String[]{MediaStore.Audio.Media._ID,    //写入我想要获得的信息（列）
@@ -79,13 +77,13 @@ public class LocalMusicDataSource implements MusicInfoSource {
             String bitmap = getAlbumArt(context, albumId);
             musicInfo= new MusicInfo();
             musicInfo.setId(id);
-            musicInfo.setTilte(tilte);
+            musicInfo.setName(tilte);
             musicInfo.setAlbum(album);
             musicInfo.setArtist(artist);
             musicInfo.setUrl(url);
             musicInfo.setDuration(duration);
-            musicInfo.setSize(size);
-            musicInfo.setBitmap(bitmap);
+//            musicInfo.setSize(size);
+            musicInfo.setPic(bitmap);
             musicInfo.setAlumbId(albumId);
 
             musicInfoList.add(musicInfo);

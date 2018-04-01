@@ -1,5 +1,6 @@
 package com.brooke.sher.loginregistertest.connect;
 
+import com.brooke.sher.app2.net.HttpCallback;
 import com.brooke.sher.loginregistertest.BasePresenter;
 import com.brooke.sher.loginregistertest.BaseView;
 import com.sher.data.MusicInfo;
@@ -17,5 +18,7 @@ public class ConnectContact {
 
     interface Presenter extends BasePresenter{
         List<MusicInfo> getLocalMusic();
+
+        List<List<MusicInfo>> getRemoteMusic(HttpCallback callback);
     }
 }

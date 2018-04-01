@@ -8,8 +8,8 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".AppContext"
@@ -24,7 +24,7 @@
             android:value="Test" />
 
         <activity android:name=".mainui.MainActivity">
-           <intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -35,13 +35,13 @@
             android:label="@string/title_activity_login" />
         <activity android:name=".register.RegisterActivity" />
         <activity android:name=".register.submitcode.SubmitCodeActivity" />
-        <activity android:name=".register.submitaccount.SubmitAccountInfoActivity">
-        </activity>
+        <activity android:name=".register.submitaccount.SubmitAccountInfoActivity"></activity>
 
-        <service android:name=".MusicService"
-            android:exported="true"
-            />
+        <service
+            android:name=".MusicService"
+            android:exported="true" />
 
+        <activity android:name=".Rank.RankActivity"></activity>
     </application>
 
 </manifest>

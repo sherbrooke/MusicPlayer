@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.media.MediaMetadataCompat;
 import android.support.v4.media.session.MediaControllerCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -141,7 +140,6 @@ public class PlayBackControllerFragment extends BaseFragment  {
     @Subscribe(sticky = true)
     public void onEventMainThread(TokenEvent event){
         try {
-            Log.i("ssss","zhixing");
             mMediaController = new MediaControllerCompat(mContext,event.getToken());
             mMediaController.registerCallback(callback);
         } catch (RemoteException e) {

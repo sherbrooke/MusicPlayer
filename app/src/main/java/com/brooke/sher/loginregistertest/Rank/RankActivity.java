@@ -1,20 +1,20 @@
-package com.brooke.sher.loginregistertest.connect;
+package com.brooke.sher.loginregistertest.Rank;
 
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.RemoteException;
-import android.support.annotation.Nullable;
 import android.support.v4.media.session.MediaControllerCompat;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 
+import com.brooke.sher.app2.net.HttpCallback;
 import com.brooke.sher.loginregistertest.BaseActivity;
-import com.brooke.sher.loginregistertest.BaseFragment;
 import com.brooke.sher.loginregistertest.R;
+import com.brooke.sher.loginregistertest.connect.CallBack;
+import com.brooke.sher.loginregistertest.connect.ConnectPresenter;
 import com.brooke.sher.loginregistertest.connect.adapter.MusicAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.sher.data.MusicInfo;
@@ -22,44 +22,47 @@ import com.sher.data.MusicInfo;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Response;
 
-/**
- * Created by Sher on 2017/8/20.
- */
-
-public class ConnectFragment extends BaseFragment implements  CallBack {
-
+public class RankActivity extends BaseActivity implements HttpCallback, CallBack {
     private RecyclerView rvList;
     private BaseQuickAdapter adapter;
 
     private List<MusicInfo> musicInfoList;
+    private List<List<MusicInfo>> musicInfoLists;
 
     private ConnectPresenter presenter;
 
     private MediaControllerCompat mMediaController;
 
-    @Nullable
+    private int index;
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.frag_connect,container,false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_rank);
+        Intent intent = getIntent();
+        index = intent.getIntExtra("index",0);
         presenter = new ConnectPresenter(mContext);
-        ((BaseActivity)getActivity()).setCallBack(this);
-        rvList = view.findViewById(R.id.rv_list);
+        rvList = findViewById(R.id.rv_list);
         rvList.setLayoutManager(new LinearLayoutManager(mContext));
-        musicInfoList =  presenter.getLocalMusic();
-
-
-        return view;
-
+        presenter.getRemoteMusic(this);
+        setCallBack(this);
     }
 
     @Override
     public void onComplete(MediaSessionCompat.Token token) {
+        Log.i("ssss","onComplete1");
         try {
             mMediaController = new MediaControllerCompat(mContext,token);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onComplete(Response response) {
+        musicInfoLists = (List<List<MusicInfo>>) (response.body());
+        musicInfoList  = musicInfoLists.get(index);
 
         adapter = new MusicAdapter(R.layout.item_music,musicInfoList);
         rvList.setAdapter(adapter);
@@ -78,5 +81,10 @@ public class ConnectFragment extends BaseFragment implements  CallBack {
                 mMediaController.getTransportControls().playFromMediaId(String.valueOf(info.getId()),bundle);
             }
         });
+    }
+
+    @Override
+    public void onError(Throwable t) {
+        t.printStackTrace();
     }
 }

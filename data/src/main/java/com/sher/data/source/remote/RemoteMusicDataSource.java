@@ -1,9 +1,8 @@
 package com.sher.data.source.remote;
 
-import android.content.Context;
-
+import com.brooke.sher.app2.net.HttpCallback;
 import com.sher.data.MusicInfo;
-import com.sher.data.source.MusicInfoSource;
+import com.sher.data.net.HttpMethods;
 
 import java.util.List;
 
@@ -11,14 +10,9 @@ import java.util.List;
  * Created by Sher on 2018/3/30.
  */
 
-public class RemoteMusicDataSource implements MusicInfoSource {
+public class RemoteMusicDataSource   {
 
     private static RemoteMusicDataSource INSTANCE;
-
-    @Override
-    public List<MusicInfo> getMusic(Context context) {
-        return null;
-    }
 
     private RemoteMusicDataSource(){}
 
@@ -29,8 +23,7 @@ public class RemoteMusicDataSource implements MusicInfoSource {
         return INSTANCE;
     }
 
-    public List<List<MusicInfo>> getMusic(){
-
-        return null;
+    public List<List<MusicInfo>> getRemoteMusic(HttpCallback callback){
+        return HttpMethods.getInstance().getMusic(callback);
     }
 }

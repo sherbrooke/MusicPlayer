@@ -2,9 +2,11 @@ package com.brooke.sher.loginregistertest.connect;
 
 import android.content.Context;
 
+import com.brooke.sher.app2.net.HttpCallback;
 import com.sher.data.MusicInfo;
 import com.sher.data.source.MusicInfoRepository;
 import com.sher.data.source.local.LocalMusicDataSource;
+import com.sher.data.source.remote.RemoteMusicDataSource;
 
 import java.util.List;
 
@@ -19,7 +21,7 @@ public class ConnectPresenter implements ConnectContact.Presenter {
     private List<MusicInfo> musicInfoList;
     private Context context;
 
-    public ConnectPresenter(ConnectContact.View connectView, Context context){
+    public ConnectPresenter( Context context){
         this.connectView = connectView;
         this.context = context;
     }
@@ -37,6 +39,11 @@ public class ConnectPresenter implements ConnectContact.Presenter {
 
     @Override
     public List<MusicInfo> getLocalMusic() {
-        return MusicInfoRepository.getInstance(LocalMusicDataSource.getINSTANCE()).getMusic(context);
+        return MusicInfoRepository.getInstance(LocalMusicDataSource.getINSTANCE(), RemoteMusicDataSource.getINSTANCE()).getMusic(context);
+    }
+
+    @Override
+    public List<List<MusicInfo>> getRemoteMusic(HttpCallback callback) {
+        return MusicInfoRepository.getInstance(LocalMusicDataSource.getINSTANCE(), RemoteMusicDataSource.getINSTANCE()).getNetMusic( callback);
     }
 }

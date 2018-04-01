@@ -32,8 +32,8 @@ public abstract class BasehttpMethods {
     private static final String TAG = "BasehttpMethods";
     private static final boolean IS_DEV = true;
 
-    public static final String DEV_BASE_URL = "http://192.168.0.112:8080/LoginRegisterTest/" ;
-    public static final String PRODUCT_BASE_URL = "http://116.62.143.100:8080/LoginRegisterTest/" ;
+    public static final String DEV_BASE_URL = "http://192.168.0.112:8080/" ;
+    public static final String PRODUCT_BASE_URL = "http://116.62.143.100:8080/" ;
 
     protected Retrofit retrofit;
 

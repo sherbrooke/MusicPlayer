@@ -23,7 +23,7 @@ public class MusicAdapter extends BaseQuickAdapter<MusicInfo,BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, MusicInfo item) {
-        helper.setText(R.id.tv_title,item.getTilte());
+        helper.setText(R.id.tv_title,item.getName());
 
     }
 

@@ -9,39 +9,15 @@ import android.os.Parcelable;
 
 public class MusicInfo implements Parcelable {
     private int id;
-    private String tilte;
+    private String name;
     private String album;
-    private String bitmap;//专辑海报
+    private String pic;//专辑海报
     private String artist;
     private String url;
     private int  duration;
-    private  long size;
-    private String tag;
+//    private  long size;
+//    private String tag;
     private long alumbId;
-
-    public long getAlumbId() {
-        return alumbId;
-    }
-
-    public void setAlumbId(long alumbId) {
-        this.alumbId = alumbId;
-    }
-
-    public String getBitmap() {
-        return bitmap;
-    }
-
-    public void setBitmap(String bitmap) {
-        this.bitmap = bitmap;
-    }
-
-    public String getTag() {
-        return tag;
-    }
-
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
 
     public int getId() {
         return id;
@@ -51,12 +27,12 @@ public class MusicInfo implements Parcelable {
         this.id = id;
     }
 
-    public String getTilte() {
-        return tilte;
+    public String getName() {
+        return name;
     }
 
-    public void setTilte(String tilte) {
-        this.tilte = tilte;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getAlbum() {
@@ -65,6 +41,14 @@ public class MusicInfo implements Parcelable {
 
     public void setAlbum(String album) {
         this.album = album;
+    }
+
+    public String getPic() {
+        return pic;
+    }
+
+    public void setPic(String pic) {
+        this.pic = pic;
     }
 
     public String getArtist() {
@@ -91,12 +75,12 @@ public class MusicInfo implements Parcelable {
         this.duration = duration;
     }
 
-    public long getSize() {
-        return size;
+    public long getAlumbId() {
+        return alumbId;
     }
 
-    public void setSize(long size) {
-        this.size = size;
+    public void setAlumbId(long alumbId) {
+        this.alumbId = alumbId;
     }
 
 
@@ -108,14 +92,13 @@ public class MusicInfo implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.id);
-        dest.writeString(this.tilte);
+        dest.writeString(this.name);
         dest.writeString(this.album);
-        dest.writeString(this.bitmap);
+        dest.writeString(this.pic);
         dest.writeString(this.artist);
         dest.writeString(this.url);
         dest.writeInt(this.duration);
-        dest.writeLong(this.size);
-        dest.writeString(this.tag);
+        dest.writeLong(this.alumbId);
     }
 
     public MusicInfo() {
@@ -123,14 +106,13 @@ public class MusicInfo implements Parcelable {
 
     protected MusicInfo(Parcel in) {
         this.id = in.readInt();
-        this.tilte = in.readString();
+        this.name = in.readString();
         this.album = in.readString();
-        this.bitmap = in.readString();
+        this.pic = in.readString();
         this.artist = in.readString();
         this.url = in.readString();
         this.duration = in.readInt();
-        this.size = in.readLong();
-        this.tag = in.readString();
+        this.alumbId = in.readLong();
     }
 
     public static final Parcelable.Creator<MusicInfo> CREATOR = new Parcelable.Creator<MusicInfo>() {

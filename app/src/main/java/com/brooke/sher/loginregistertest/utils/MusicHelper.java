@@ -190,11 +190,11 @@ public class MusicHelper {
                 .putString(MediaMetadataCompat.METADATA_KEY_ARTIST,info.getArtist())
                 .putString(MediaMetadataCompat.METADATA_KEY_ALBUM,info.getAlbum())
                 .putLong(MediaMetadataCompat.METADATA_KEY_TRACK_NUMBER,info.getAlumbId())
-                .putString(MediaMetadataCompat.METADATA_KEY_TITLE,info.getTilte())
+                .putString(MediaMetadataCompat.METADATA_KEY_TITLE,info.getName())
                 .putString(MediaMetadataCompat.METADATA_KEY_MEDIA_ID,info.getId()+"")
                 .putString(MediaMetadataCompat.METADATA_KEY_ALBUM_ART_URI,info.getUrl())
                 .putLong(MediaMetadataCompat.METADATA_KEY_DURATION, info.getDuration())
-                .putString(MediaMetadataCompat.METADATA_KEY_ALBUM_ART, info.getBitmap())
+                .putString(MediaMetadataCompat.METADATA_KEY_ALBUM_ART, info.getPic())
                 .build();
     }
 
