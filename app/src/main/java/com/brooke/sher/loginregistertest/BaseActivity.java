@@ -15,7 +15,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.media.MediaMetadataCompat;
 import android.support.v4.media.session.MediaControllerCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
-import android.util.Log;
 
 import com.brooke.sher.app2.ui.BaseAppActivity;
 import com.brooke.sher.loginregistertest.connect.CallBack;
@@ -110,7 +109,8 @@ public abstract class BaseActivity extends BaseAppActivity implements ServiceCon
 
 
         if (mMediaController!=null
-//                && (long)(mMediaController.getPlaybackState().getPlaybackState()) == PlaybackStateCompat.STATE_PLAYING
+                && ((long)(mMediaController.getPlaybackState().getPlaybackState()) == PlaybackStateCompat.STATE_PLAYING ||
+                (long)(mMediaController.getPlaybackState().getPlaybackState()) == PlaybackStateCompat.ACTION_PAUSE)
                 ){
             showPlaybackControls();
         }

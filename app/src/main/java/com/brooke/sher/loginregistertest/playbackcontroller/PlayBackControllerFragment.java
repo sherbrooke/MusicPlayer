@@ -24,12 +24,20 @@ import com.sher.data.MusicInfo;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
+
 /**
  * Created by Sher on 2017/9/16.
  */
 
 public class PlayBackControllerFragment extends BaseFragment  {
 
+    private static final long PROGRESS_UPDATE_INTERNAL = 1000;
+    private static final long PROGRESS_UPDATE_INITIAL_INTERVAL = 100;
+    
     private MediaControllerCompat mMediaController;
 
     private ImageView ivThumb;
@@ -42,6 +50,18 @@ public class PlayBackControllerFragment extends BaseFragment  {
     private MusicInfo musicInfo;
     private PlaybackStateCompat playbackState;
     private long currentPosition;
+
+    private ScheduledFuture<?> mScheduleFuture;
+    private final ScheduledExecutorService mExecutorService =
+            Executors.newSingleThreadScheduledExecutor();
+    private final Handler mHandler = new Handler();
+    private final Runnable mUpdateProgressTask = new Runnable() {
+        @Override
+        public void run() {
+            updateProgress();
+        }
+    };
+    
     private MediaControllerCompat.Callback callback = new MediaControllerCompat.Callback() {
         @Override
         public void onPlaybackStateChanged(PlaybackStateCompat state) {
@@ -50,23 +70,17 @@ public class PlayBackControllerFragment extends BaseFragment  {
             //如果状态为播放中或者不是，修改图标
             if (mMediaController.getPlaybackState()!=null && mMediaController.getPlaybackState().getState() == PlaybackStateCompat.STATE_PLAYING){
                 ivPauseOrplaying.setImageResource(R.drawable.a_8);
-                currentPosition = playbackState.getPosition();
-                if (playbackState.getState() == PlaybackStateCompat.STATE_PLAYING) {
-                    // Calculate the elapsed time between the last position update and now and unless
-                    // paused, we can assume (delta * speed) + current position is approximately the
-                    // latest position. This ensure that we do not repeatedly call the getPlaybackState()
-                    // on MediaControllerCompat.
-                    long timeDelta = SystemClock.elapsedRealtime() -
-                            playbackState.getLastPositionUpdateTime();
-                    currentPosition += (int) timeDelta * playbackState.getPlaybackSpeed();
-                }
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        pbProgress.setProgress((int) currentPosition);
-                    }
-                },1000);
 
+                if (!mExecutorService.isShutdown()) {
+                    mScheduleFuture = mExecutorService.scheduleAtFixedRate(
+                            new Runnable() {
+                                @Override
+                                public void run() {
+                                    mHandler.post(mUpdateProgressTask);
+                                }
+                            }, PROGRESS_UPDATE_INITIAL_INTERVAL,
+                            PROGRESS_UPDATE_INTERNAL, TimeUnit.MILLISECONDS);
+                }
             }else {
                 ivPauseOrplaying.setImageResource(R.drawable.a_9);
             }
@@ -134,6 +148,7 @@ public class PlayBackControllerFragment extends BaseFragment  {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        mExecutorService.shutdown();
         EventBus.getDefault().unregister(this);
     }
 
@@ -147,7 +162,22 @@ public class PlayBackControllerFragment extends BaseFragment  {
         }
     }
 
-
+    private void updateProgress() {
+        if (playbackState == null) {
+            return;
+        }
+        long currentPosition = playbackState.getPosition();
+        if (playbackState.getState() == PlaybackStateCompat.STATE_PLAYING) {
+            // Calculate the elapsed time between the last position update and now and unless
+            // paused, we can assume (delta * speed) + current position is approximately the
+            // latest position. This ensure that we do not repeatedly call the getPlaybackState()
+            // on MediaControllerCompat.
+            long timeDelta = SystemClock.elapsedRealtime() -
+                    playbackState.getLastPositionUpdateTime();
+            currentPosition += (int) timeDelta * playbackState.getPlaybackSpeed();
+        }
+        pbProgress.setProgress((int) currentPosition);
+    }
 
 
 }
