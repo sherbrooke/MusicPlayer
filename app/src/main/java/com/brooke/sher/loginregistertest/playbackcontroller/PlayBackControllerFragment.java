@@ -94,19 +94,16 @@ public class PlayBackControllerFragment extends BaseFragment  {
 //            getcurrentMusic获取当前音乐，显示在控制台上
 //            musicInfo = MusicHelper.getCurrentMusic();
 //            ivThumb.setImageBitmap();
-//               .putString(MediaMetadataCompat.METADATA_KEY_ARTIST,info.getArtist())
-//                    .putString(MediaMetadataCompat.METADATA_KEY_ALBUM,info.getAlbum())
-//                    .putLong(MediaMetadataCompat.METADATA_KEY_TRACK_NUMBER,info.getAlumbId())
-//                    .putString(MediaMetadataCompat.METADATA_KEY_TITLE,info.getTilte())
-//                    .putString(MediaMetadataCompat.METADATA_KEY_MEDIA_ID,info.getId()+"")
-//                    .putString(MediaMetadataCompat.METADATA_KEY_ALBUM_ART_URI,info.getUrl())
-//                    .putLong(MediaMetadataCompat.METADATA_KEY_DURATION, info.getDuration())
-//                    .putBitmap(MediaMetadataCompat.METADATA_KEY_ALBUM_ART, info.getBitmap())
-            String uri = metadata.getString(MediaMetadataCompat.METADATA_KEY_ALBUM_ART);
-            if ( uri  != null)
-            Glide.with(PlayBackControllerFragment.this).load(uri).into(ivThumb);
+            String uri = metadata.getString(MediaMetadataCompat.METADATA_KEY_ALBUM_ART_URI);
+            if ( uri  != null){
+                Glide.with(PlayBackControllerFragment.this).load(uri).into(ivThumb);
+            }else{
+                if (PlayBackControllerFragment.this.getActivity() !=null)
+                Glide.with(PlayBackControllerFragment.this).load(R.mipmap.ic_launcher_round).into(ivThumb);
+            }
             tvTitle.setText(metadata.getString(MediaMetadataCompat.METADATA_KEY_TITLE));
             tvArtist.setText(metadata.getString(MediaMetadataCompat.METADATA_KEY_ARTIST));
+            pbProgress.setMax((int)metadata.getLong(MediaMetadataCompat.METADATA_KEY_DURATION));
         }
     };
 
@@ -122,7 +119,6 @@ public class PlayBackControllerFragment extends BaseFragment  {
 
     private void initView(View view) {
         pbProgress = view.findViewById(R.id.pb_progress);
-        pbProgress.setProgress(0);
         ivThumb = view.findViewById(R.id.iv_thumb);
         ivPauseOrplaying = view.findViewById(R.id.iv_play_or_pause);
         ivMenu = view.findViewById(R.id.iv_music_list);

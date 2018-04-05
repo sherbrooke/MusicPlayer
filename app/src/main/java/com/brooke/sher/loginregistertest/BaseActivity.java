@@ -108,9 +108,9 @@ public abstract class BaseActivity extends BaseAppActivity implements ServiceCon
         hidePlaybackControls();
 
 
-        if (mMediaController!=null
-                && ((long)(mMediaController.getPlaybackState().getPlaybackState()) == PlaybackStateCompat.STATE_PLAYING ||
-                (long)(mMediaController.getPlaybackState().getPlaybackState()) == PlaybackStateCompat.ACTION_PAUSE)
+        if (mMediaController!=null && mMediaController.getPlaybackState() != null
+                && ((mMediaController.getPlaybackState().getState()) == PlaybackStateCompat.STATE_PLAYING ||
+                (mMediaController.getPlaybackState().getState()) == PlaybackStateCompat.ACTION_PAUSE)
                 ){
             showPlaybackControls();
         }
